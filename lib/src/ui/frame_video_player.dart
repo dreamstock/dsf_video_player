@@ -1,12 +1,16 @@
-import 'package:dsf_video_player/src/models/frame_payload.dart';
+import 'package:dsf_video_player/src/logic/frame_payload_controller.dart';
+import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
+import 'package:dsf_video_player/src/ui/video_player/custom_dsf_material_bar.dart';
+import 'package:dsf_video_player/src/ui/video_player/custom_dsf_position_indicator.dart';
+import 'package:dsf_video_player/src/ui/video_player/custom_play_pause_video.dart';
 import 'package:dsf_video_player/src/ui/video_player/loading_buffer_component.dart';
+import 'package:dsf_video_player/src/ui/video_player/spotlight_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit_video/media_kit_video.dart';
-import 'package:media_kit_video/media_kit_video_controls/src/controls/material_desktop.dart';
 
-class FrameVideoPlayer extends StatelessWidget {
+class FrameVideoPlayerImpl extends StatelessWidget {
   final FramePayloadController frame;
-  const FrameVideoPlayer({
+  const FrameVideoPlayerImpl({
     super.key,
     required this.frame,
   });
@@ -42,16 +46,18 @@ class FrameVideoPlayer extends StatelessWidget {
                   Column(
                     children: [
                       const Spacer(),
-                      Consumer(builder: (context, ref, child) {
-                        final clipOffset =
-                            ref.watch(widget.currentClipOffsetProvider);
+                      ValueListenableBuilder<VideosEntryPayload?>(
+                          valueListenable: frame.currentPayload,
+                          builder: (context, payload, child) {
+                            final clipOffset = payload?.offset;
 
-                        return DSFSeekBar(
-                          key: UniqueKey(),
-                          start: clipOffset?.start ?? Duration.zero,
-                          end: clipOffset?.end ?? player.state.duration,
-                        );
-                      }),
+                            return DSFSeekBar(
+                              key: UniqueKey(),
+                              start: clipOffset?.start ?? Duration.zero,
+                              end: clipOffset?.end ??
+                                  frame.player.state.duration,
+                            );
+                          }),
                       ColoredBox(
                         color: Colors.transparent,
                         child: Row(
@@ -64,25 +70,26 @@ class FrameVideoPlayer extends StatelessWidget {
                                 final position = snapshot.data;
 
                                 if (position == null ||
-                                    position < endDuration) {
-                                  return Consumer(
-                                      builder: (context, ref, child) {
-                                    final clipOffset = ref.watch(
-                                        widget.currentClipOffsetProvider);
+                                    position < frame.endDuration) {
+                                  return ValueListenableBuilder<
+                                          VideosEntryPayload?>(
+                                      valueListenable: frame.currentPayload,
+                                      builder: (context, payload, child) {
+                                        final clipOffset = payload?.offset;
 
-                                    return CustomDSFPlayOrPauseButton(
-                                      player: player,
-                                      startDuration:
-                                          clipOffset?.start ?? Duration.zero,
-                                      maxDuration: clipOffset?.end ??
-                                          player.state.duration,
-                                    );
-                                  });
+                                        return CustomDSFPlayOrPauseButton(
+                                          player: frame.player,
+                                          startDuration: clipOffset?.start ??
+                                              Duration.zero,
+                                          maxDuration: clipOffset?.end ??
+                                              frame.player.state.duration,
+                                        );
+                                      });
                                 }
 
                                 return IconButton(
                                   onPressed: () {
-                                    player.seek(startDuration);
+                                    frame.player.seek(frame.startDuration);
                                   },
                                   icon: const Icon(
                                     Icons.replay,
@@ -93,16 +100,19 @@ class FrameVideoPlayer extends StatelessWidget {
                             ),
                             const MaterialDesktopSkipNextButton(),
                             const MaterialDesktopVolumeButton(),
-                            Consumer(builder: (context, ref, child) {
-                              final clipOffset =
-                                  ref.watch(widget.currentClipOffsetProvider);
+                            ValueListenableBuilder<VideosEntryPayload?>(
+                              valueListenable: frame.currentPayload,
+                              builder: (context, payload, child) {
+                                final clipOffset = payload?.offset;
 
-                              return CustomDSFPositionIndicator(
-                                key: UniqueKey(),
-                                start: clipOffset?.start ?? Duration.zero,
-                                end: clipOffset?.end ?? player.state.duration,
-                              );
-                            }),
+                                return CustomDSFPositionIndicator(
+                                  key: UniqueKey(),
+                                  start: clipOffset?.start ?? Duration.zero,
+                                  end: clipOffset?.end ??
+                                      frame.player.state.duration,
+                                );
+                              },
+                            ),
                             const SizedBox(width: 12),
                             const Spacer(),
                             const SizedBox(width: 8),
@@ -114,28 +124,31 @@ class FrameVideoPlayer extends StatelessWidget {
                     ],
                   ),
                   IgnorePointer(
-                    child: Consumer(builder: (context, ref, child) {
-                      final spotlight = ref.watch(widget.spotlightProvider);
-                      if (spotlight == null) {
-                        return const SizedBox();
-                      }
+                    child: ValueListenableBuilder<VideosEntryPayload?>(
+                      valueListenable: frame.currentPayload,
+                      builder: (context, payload, child) {
+                        final spotlight = payload?.spotlight;
+                        if (spotlight == null) {
+                          return const SizedBox();
+                        }
 
-                      return LayoutBuilder(builder: (context, constraints) {
-                        return ValueListenableBuilder(
-                          valueListenable: isDisplayFocusTime,
-                          builder: (context, value, child) {
-                            return Opacity(
-                              opacity: value ? 1 : 0,
-                              child: SpotlightWidget(
-                                key: UniqueKey(),
-                                spotlight: spotlight,
-                                constraints: constraints,
-                              ),
-                            );
-                          },
-                        );
-                      });
-                    }),
+                        return LayoutBuilder(builder: (context, constraints) {
+                          return ValueListenableBuilder<bool>(
+                            valueListenable: frame.isDisplayFocusTime,
+                            builder: (context, value, child) {
+                              return Opacity(
+                                opacity: value ? 1 : 0,
+                                child: SpotlightWidget(
+                                  key: UniqueKey(),
+                                  spotlight: spotlight,
+                                  constraints: constraints,
+                                ),
+                              );
+                            },
+                          );
+                        });
+                      },
+                    ),
                   ),
                 ],
               );

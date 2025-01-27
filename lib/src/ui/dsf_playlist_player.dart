@@ -1,9 +1,8 @@
-import 'dart:async';
-import 'package:dsf_video_player/src/models/frame_payload.dart';
+
+import 'package:dsf_video_player/src/logic/frame_payload_controller.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
+import 'package:dsf_video_player/src/ui/frame_video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:media_kit/media_kit.dart';
-import 'package:media_kit_video/media_kit_video.dart';
 
 
 
@@ -22,6 +21,7 @@ class DsfPlaylistPlayer extends StatefulWidget {
 // Will tween opacity between two players, the current playing one will be visible
 // and the other will be loading in the background, with opacity 0.0.
 class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
+  late final PlaylistCluster payload;
   late final FramePayloadController frame1;
   late final FramePayloadController frame2;
 
@@ -38,13 +38,22 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
   }
 
   @override
+  void dispose() {
+    frame1.dispose();
+    frame2.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SizedBox(
           width: constraints.maxWidth,
           height: constraints.maxWidth * 9.0 / 16.0,
-          child: 
+          child: const FrameVideoPlayerImpl(
+
+          ),
         );
       },
     );

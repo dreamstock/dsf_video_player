@@ -9,17 +9,17 @@ import 'package:player_source_models/models/spreedsheet/clips/spotlight.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 
 class FramePayloadController {
-  FramePayloadController({
+  FramePayloadController._({
     required this.controller,
     required this.currentPayload,
   });
 
   factory FramePayloadController.initialize({
-    required VideosEntryPayload payload,
+    required VideosEntryPayload? payload,
   }) {
-    final frame = FramePayloadController(
+    final frame = FramePayloadController._(
       controller: VideoController(Player()),
-      currentPayload: payload,
+      currentPayload: ValueNotifier(payload),
     );
 
     frame.isDisplayFocusTime.addListener(frame._onDisplayUpdate);
@@ -30,18 +30,22 @@ class FramePayloadController {
 
   final VideoController controller;
   Spotlight? get spotlight {
-    return currentPayload.spotlight;
+    return currentPayload.value?.spotlight;
   }
 
   Duration get endDuration {
-    return currentPayload.offset?.end ?? player.state.duration;
+    return currentPayload.value?.offset?.end ?? player.state.duration;
   }
 
   Duration get startDuration {
-    return currentPayload.offset?.start ?? Duration.zero;
+    return currentPayload.value?.offset?.start ?? Duration.zero;
   }
 
-  VideosEntryPayload currentPayload;
+  String? get currentUuid {
+    return currentPayload.value?.clipUuid;
+  }
+
+  final ValueNotifier<VideosEntryPayload?> currentPayload;
 
   // If the focus is already displayed in this role, we don't need to display it again.
   // If player seek the video back, we need to display the focus again. So we will
@@ -57,19 +61,31 @@ class FramePayloadController {
 
   void dispose() {
     player.dispose();
+    currentPayload.dispose();
     _positionSub.cancel();
     isDisplayFocusTime.removeListener(_onDisplayUpdate);
     isDisplayFocusTime.dispose();
   }
 
   Player get player => controller.player;
+  bool get isDone => currentPayload.value != null;
+
+  Future<void> stop() async {
+    await controller.player.pause();
+  }
 
   Future<void> load(VideosEntryPayload payload) async {
     controller.player.setVolume(0);
-    currentPayload = payload;
+    await controller.player.pause();
+    currentPayload.value = payload;
     player.open(Media(payload.videoUrl));
     await controller.player.pause();
     await controller.player.seek(startDuration);
+  }
+
+  Future<void> start(double volume) async {
+    await controller.player.play();
+    await controller.player.setVolume(volume);
   }
 
   void _onDisplayUpdate() {
