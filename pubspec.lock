@@ -338,7 +338,7 @@ packages:
     source: git
     version: "0.0.1"
   enchanted_collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: enchanted_collection
       sha256: "6417a4ac247af63edcb7d4c7e5499b3b1b01d7c0d5de5603bd62a53a6e7e5e8d"

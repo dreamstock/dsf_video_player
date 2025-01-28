@@ -1,4 +1,3 @@
-import 'package:dsf_video_player/src/ui/dsf_playlist_player.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_source_models/models/spreedsheet/clips/spotlight.dart';
 import 'package:player_source_models/models/spreedsheet/clips/clip_offset.dart';
@@ -15,6 +14,16 @@ abstract class PlaylistCluster with _$PlaylistCluster {
     required String selectedClipUuid,
     required Map<GroupName, List<VideosEntryPayload>> payload,
   }) = _PlaylistCluster;
+
+  GroupName get selectedGroupName {
+    for (final group in payload.entries) {
+      if (group.value.any((element) => element.clipUuid == selectedClipUuid)) {
+        return group.key;
+      }
+    }
+
+    throw Exception('No clip with uuid $selectedClipUuid found in the payload');
+  }
 
   VideosEntryPayload get current {
     for (final group in payload.values) {

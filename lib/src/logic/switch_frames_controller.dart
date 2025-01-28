@@ -3,14 +3,43 @@ import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:flutter/material.dart';
 
 class SwitchFramesController {
+  SwitchFramesController._({
+    required this.payload,
+    required this.frame1,
+    required this.frame2,
+  });
+
+  factory SwitchFramesController.initialize({
+    required PlaylistCluster payload,
+  }) {
+    final frame1 = FramePayloadController.initialize(
+      payload: payload.current,
+    );
+    final frame2 = FramePayloadController.initialize(
+      payload: payload.next,
+    );
+
+    final controller = SwitchFramesController._(
+      payload: ValueNotifier(payload),
+      frame1: frame1,
+      frame2: frame2,
+    );
+
+    controller.setListeners();
+    return controller;
+  }
   // Only modify intern
-  late final ValueNotifier<PlaylistCluster> payload;
+  final ValueNotifier<PlaylistCluster> payload;
 
   // CurrentlyPlaying _currentlyPlaying = CurrentlyPlaying.frame1;
-  late final FramePayloadController frame1;
-  late final FramePayloadController frame2;
+  final FramePayloadController frame1;
+  final FramePayloadController frame2;
 
-  void dispose() {}
+  void dispose() {
+    payload.dispose();
+    frame1.dispose();
+    frame2.dispose();
+  }
 
   void setListeners() {
     payload.addListener(() async {
@@ -32,27 +61,35 @@ class SwitchFramesController {
       }
 
       // If not found, load the first frame
-      await frame1.stop();
-      await frame2.stop();
+      await Future.wait([frame1.stop(), frame2.stop()]);
       await frame1.load(curr);
-      frame1.start(1.0);
+      await frame1.start(1.0);
       if (next != null) frame2.load(next);
     });
 
-    // frame1.controller.player.stream.position.listen((event) {
-    //   if (event >= frame1.endDuration) {
-    //     // Pass to next and search itselfs
-    //     final next = payload.value.next;
-    //     if (next != null) {
-    //       payload.value = payload.value.copyWith(selectedClipUuid: next.clipUuid);
-    //     }
+    void switchToNext() {
+      final next = payload.value.next;
+      if (next != null) {
+        payload.value = payload.value.copyWith(
+          selectedClipUuid: next.clipUuid,
+        );
+      }
+    }
 
-    //     frame1.player.pause();
-    //     frame1.load(payload.value.current);
-    //     final currentVolume = frame1.player.state.volume;
-    //     frame2.start(currentVolume);
-    //   }
-    // });
+    frame1.onEndClip = switchToNext;
+    frame2.onEndClip = switchToNext;
+  }
+
+  void selectGroup(GroupName name) {
+    payload.value = payload.value.copyWith(
+      selectedClipUuid: payload.value.payload[name]!.first.clipUuid,
+    );
+  }
+
+  void selectClip(String videoUuid) {
+    payload.value = payload.value.copyWith(
+      selectedClipUuid: videoUuid,
+    );
   }
 }
 

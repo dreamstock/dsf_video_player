@@ -1,10 +1,10 @@
 import 'package:dsf_video_player/src/logic/frame_payload_controller.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
-import 'package:dsf_video_player/src/ui/video_player/custom_dsf_material_bar.dart';
-import 'package:dsf_video_player/src/ui/video_player/custom_dsf_position_indicator.dart';
-import 'package:dsf_video_player/src/ui/video_player/custom_play_pause_video.dart';
-import 'package:dsf_video_player/src/ui/video_player/loading_buffer_component.dart';
-import 'package:dsf_video_player/src/ui/video_player/spotlight_widget.dart';
+import 'package:dsf_video_player/src/ui/video_player_components/custom_dsf_material_bar.dart';
+import 'package:dsf_video_player/src/ui/video_player_components/custom_dsf_position_indicator.dart';
+import 'package:dsf_video_player/src/ui/video_player_components/custom_play_pause_video.dart';
+import 'package:dsf_video_player/src/ui/video_player_components/loading_buffer_component.dart';
+import 'package:dsf_video_player/src/ui/video_player_components/spotlight_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 

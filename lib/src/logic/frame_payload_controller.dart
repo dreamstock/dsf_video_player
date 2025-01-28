@@ -75,12 +75,12 @@ class FramePayloadController {
   }
 
   Future<void> load(VideosEntryPayload payload) async {
-    controller.player.setVolume(0);
+    // controller.player.setVolume(0);
     await controller.player.pause();
     currentPayload.value = payload;
     player.open(Media(payload.videoUrl));
-    await controller.player.pause();
     await controller.player.seek(startDuration);
+    await controller.player.pause();
   }
 
   Future<void> start(double volume) async {
@@ -98,9 +98,11 @@ class FramePayloadController {
     }
   }
 
+  void Function()? onEndClip;
+
   StreamSubscription<Duration> get positionListener {
     return player.stream.position.listen(
-      (Duration position) {
+      (Duration position) async {
         final spotPos = spotlight?.time;
         if (spotPos == null) return;
 
@@ -108,7 +110,8 @@ class FramePayloadController {
 
         final isDurrAboveMax = endDuration.inMilliseconds <= pMil;
         if (isDurrAboveMax) {
-          player.pause();
+          await player.pause();
+          onEndClip?.call();
           return;
         }
 
