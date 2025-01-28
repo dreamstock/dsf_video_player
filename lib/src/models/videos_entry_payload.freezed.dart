@@ -133,20 +133,6 @@ class _$PlaylistClusterImpl extends _PlaylistCluster {
     return 'PlaylistCluster(selectedClipUuid: $selectedClipUuid, payload: $payload)';
   }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PlaylistClusterImpl &&
-            (identical(other.selectedClipUuid, selectedClipUuid) ||
-                other.selectedClipUuid == selectedClipUuid) &&
-            const DeepCollectionEquality().equals(other._payload, _payload));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, selectedClipUuid,
-      const DeepCollectionEquality().hash(_payload));
-
   /// Create a copy of PlaylistCluster
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -186,7 +172,7 @@ mixin _$VideosEntryPayload {
   String? get tumbnail => throw _privateConstructorUsedError;
   ClipOffset? get offset => throw _privateConstructorUsedError;
   String get clipUuid => throw _privateConstructorUsedError;
-  Spotlight get spotlight => throw _privateConstructorUsedError;
+  Spotlight? get spotlight => throw _privateConstructorUsedError;
 
   /// Create a copy of VideosEntryPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -209,11 +195,11 @@ abstract class $VideosEntryPayloadCopyWith<$Res> {
       String? tumbnail,
       ClipOffset? offset,
       String clipUuid,
-      Spotlight spotlight});
+      Spotlight? spotlight});
 
   $MatchInfosCopyWith<$Res>? get matchInfos;
   $ClipOffsetCopyWith<$Res>? get offset;
-  $SpotlightCopyWith<$Res> get spotlight;
+  $SpotlightCopyWith<$Res>? get spotlight;
 }
 
 /// @nodoc
@@ -238,7 +224,7 @@ class _$VideosEntryPayloadCopyWithImpl<$Res, $Val extends VideosEntryPayload>
     Object? tumbnail = freezed,
     Object? offset = freezed,
     Object? clipUuid = null,
-    Object? spotlight = null,
+    Object? spotlight = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -269,10 +255,10 @@ class _$VideosEntryPayloadCopyWithImpl<$Res, $Val extends VideosEntryPayload>
           ? _value.clipUuid
           : clipUuid // ignore: cast_nullable_to_non_nullable
               as String,
-      spotlight: null == spotlight
+      spotlight: freezed == spotlight
           ? _value.spotlight
           : spotlight // ignore: cast_nullable_to_non_nullable
-              as Spotlight,
+              as Spotlight?,
     ) as $Val);
   }
 
@@ -308,8 +294,12 @@ class _$VideosEntryPayloadCopyWithImpl<$Res, $Val extends VideosEntryPayload>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $SpotlightCopyWith<$Res> get spotlight {
-    return $SpotlightCopyWith<$Res>(_value.spotlight, (value) {
+  $SpotlightCopyWith<$Res>? get spotlight {
+    if (_value.spotlight == null) {
+      return null;
+    }
+
+    return $SpotlightCopyWith<$Res>(_value.spotlight!, (value) {
       return _then(_value.copyWith(spotlight: value) as $Val);
     });
   }
@@ -331,14 +321,14 @@ abstract class _$$VideosEntryPayloadImplCopyWith<$Res>
       String? tumbnail,
       ClipOffset? offset,
       String clipUuid,
-      Spotlight spotlight});
+      Spotlight? spotlight});
 
   @override
   $MatchInfosCopyWith<$Res>? get matchInfos;
   @override
   $ClipOffsetCopyWith<$Res>? get offset;
   @override
-  $SpotlightCopyWith<$Res> get spotlight;
+  $SpotlightCopyWith<$Res>? get spotlight;
 }
 
 /// @nodoc
@@ -361,7 +351,7 @@ class __$$VideosEntryPayloadImplCopyWithImpl<$Res>
     Object? tumbnail = freezed,
     Object? offset = freezed,
     Object? clipUuid = null,
-    Object? spotlight = null,
+    Object? spotlight = freezed,
   }) {
     return _then(_$VideosEntryPayloadImpl(
       title: null == title
@@ -392,10 +382,10 @@ class __$$VideosEntryPayloadImplCopyWithImpl<$Res>
           ? _value.clipUuid
           : clipUuid // ignore: cast_nullable_to_non_nullable
               as String,
-      spotlight: null == spotlight
+      spotlight: freezed == spotlight
           ? _value.spotlight
           : spotlight // ignore: cast_nullable_to_non_nullable
-              as Spotlight,
+              as Spotlight?,
     ));
   }
 }
@@ -428,7 +418,7 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
   @override
   final String clipUuid;
   @override
-  final Spotlight spotlight;
+  final Spotlight? spotlight;
 
   @override
   String toString() {
@@ -479,7 +469,7 @@ abstract class _VideosEntryPayload implements VideosEntryPayload {
       required final String? tumbnail,
       required final ClipOffset? offset,
       required final String clipUuid,
-      required final Spotlight spotlight}) = _$VideosEntryPayloadImpl;
+      required final Spotlight? spotlight}) = _$VideosEntryPayloadImpl;
 
   @override
   String get title;
@@ -496,7 +486,7 @@ abstract class _VideosEntryPayload implements VideosEntryPayload {
   @override
   String get clipUuid;
   @override
-  Spotlight get spotlight;
+  Spotlight? get spotlight;
 
   /// Create a copy of VideosEntryPayload
   /// with the given fields replaced by the non-null parameter values.

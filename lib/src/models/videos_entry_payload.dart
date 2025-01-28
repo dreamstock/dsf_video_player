@@ -26,6 +26,12 @@ abstract class PlaylistCluster with _$PlaylistCluster {
     throw Exception('No clip with uuid $selectedClipUuid found in the payload');
   }
 
+  @override
+  bool operator ==(Object other) {
+    // TODO: implement ==
+    return super == other;
+  }
+
   VideosEntryPayload get current {
     for (final group in payload.values) {
       final index =
@@ -95,6 +101,6 @@ abstract class VideosEntryPayload with _$VideosEntryPayload {
     required String? tumbnail,
     required ClipOffset? offset,
     required String clipUuid,
-    required Spotlight spotlight,
+    required Spotlight? spotlight,
   }) = _VideosEntryPayload;
 }
