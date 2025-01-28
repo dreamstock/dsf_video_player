@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PlaylistCluster {
   String get selectedClipUuid => throw _privateConstructorUsedError;
-  Map<GroupName, List<VideosEntryPayload>> get payload =>
+  Map<String, List<VideosEntryPayload>> get payload =>
       throw _privateConstructorUsedError;
 
   /// Create a copy of PlaylistCluster
@@ -34,8 +34,7 @@ abstract class $PlaylistClusterCopyWith<$Res> {
       _$PlaylistClusterCopyWithImpl<$Res, PlaylistCluster>;
   @useResult
   $Res call(
-      {String selectedClipUuid,
-      Map<GroupName, List<VideosEntryPayload>> payload});
+      {String selectedClipUuid, Map<String, List<VideosEntryPayload>> payload});
 }
 
 /// @nodoc
@@ -64,7 +63,7 @@ class _$PlaylistClusterCopyWithImpl<$Res, $Val extends PlaylistCluster>
       payload: null == payload
           ? _value.payload
           : payload // ignore: cast_nullable_to_non_nullable
-              as Map<GroupName, List<VideosEntryPayload>>,
+              as Map<String, List<VideosEntryPayload>>,
     ) as $Val);
   }
 }
@@ -78,8 +77,7 @@ abstract class _$$PlaylistClusterImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String selectedClipUuid,
-      Map<GroupName, List<VideosEntryPayload>> payload});
+      {String selectedClipUuid, Map<String, List<VideosEntryPayload>> payload});
 }
 
 /// @nodoc
@@ -106,7 +104,7 @@ class __$$PlaylistClusterImplCopyWithImpl<$Res>
       payload: null == payload
           ? _value._payload
           : payload // ignore: cast_nullable_to_non_nullable
-              as Map<GroupName, List<VideosEntryPayload>>,
+              as Map<String, List<VideosEntryPayload>>,
     ));
   }
 }
@@ -116,15 +114,15 @@ class __$$PlaylistClusterImplCopyWithImpl<$Res>
 class _$PlaylistClusterImpl extends _PlaylistCluster {
   _$PlaylistClusterImpl(
       {required this.selectedClipUuid,
-      required final Map<GroupName, List<VideosEntryPayload>> payload})
+      required final Map<String, List<VideosEntryPayload>> payload})
       : _payload = payload,
         super._();
 
   @override
   final String selectedClipUuid;
-  final Map<GroupName, List<VideosEntryPayload>> _payload;
+  final Map<String, List<VideosEntryPayload>> _payload;
   @override
-  Map<GroupName, List<VideosEntryPayload>> get payload {
+  Map<String, List<VideosEntryPayload>> get payload {
     if (_payload is EqualUnmodifiableMapView) return _payload;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_payload);
@@ -162,14 +160,14 @@ class _$PlaylistClusterImpl extends _PlaylistCluster {
 abstract class _PlaylistCluster extends PlaylistCluster {
   factory _PlaylistCluster(
           {required final String selectedClipUuid,
-          required final Map<GroupName, List<VideosEntryPayload>> payload}) =
+          required final Map<String, List<VideosEntryPayload>> payload}) =
       _$PlaylistClusterImpl;
   _PlaylistCluster._() : super._();
 
   @override
   String get selectedClipUuid;
   @override
-  Map<GroupName, List<VideosEntryPayload>> get payload;
+  Map<String, List<VideosEntryPayload>> get payload;
 
   /// Create a copy of PlaylistCluster
   /// with the given fields replaced by the non-null parameter values.
@@ -182,7 +180,8 @@ abstract class _PlaylistCluster extends PlaylistCluster {
 /// @nodoc
 mixin _$VideosEntryPayload {
   String get title => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  MatchInfos? get matchInfos => throw _privateConstructorUsedError;
   String get videoUrl => throw _privateConstructorUsedError;
   String? get tumbnail => throw _privateConstructorUsedError;
   ClipOffset? get offset => throw _privateConstructorUsedError;
@@ -204,13 +203,15 @@ abstract class $VideosEntryPayloadCopyWith<$Res> {
   @useResult
   $Res call(
       {String title,
-      String description,
+      String? description,
+      MatchInfos? matchInfos,
       String videoUrl,
       String? tumbnail,
       ClipOffset? offset,
       String clipUuid,
       Spotlight spotlight});
 
+  $MatchInfosCopyWith<$Res>? get matchInfos;
   $ClipOffsetCopyWith<$Res>? get offset;
   $SpotlightCopyWith<$Res> get spotlight;
 }
@@ -231,7 +232,8 @@ class _$VideosEntryPayloadCopyWithImpl<$Res, $Val extends VideosEntryPayload>
   @override
   $Res call({
     Object? title = null,
-    Object? description = null,
+    Object? description = freezed,
+    Object? matchInfos = freezed,
     Object? videoUrl = null,
     Object? tumbnail = freezed,
     Object? offset = freezed,
@@ -243,10 +245,14 @@ class _$VideosEntryPayloadCopyWithImpl<$Res, $Val extends VideosEntryPayload>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      matchInfos: freezed == matchInfos
+          ? _value.matchInfos
+          : matchInfos // ignore: cast_nullable_to_non_nullable
+              as MatchInfos?,
       videoUrl: null == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
@@ -268,6 +274,20 @@ class _$VideosEntryPayloadCopyWithImpl<$Res, $Val extends VideosEntryPayload>
           : spotlight // ignore: cast_nullable_to_non_nullable
               as Spotlight,
     ) as $Val);
+  }
+
+  /// Create a copy of VideosEntryPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $MatchInfosCopyWith<$Res>? get matchInfos {
+    if (_value.matchInfos == null) {
+      return null;
+    }
+
+    return $MatchInfosCopyWith<$Res>(_value.matchInfos!, (value) {
+      return _then(_value.copyWith(matchInfos: value) as $Val);
+    });
   }
 
   /// Create a copy of VideosEntryPayload
@@ -305,13 +325,16 @@ abstract class _$$VideosEntryPayloadImplCopyWith<$Res>
   @useResult
   $Res call(
       {String title,
-      String description,
+      String? description,
+      MatchInfos? matchInfos,
       String videoUrl,
       String? tumbnail,
       ClipOffset? offset,
       String clipUuid,
       Spotlight spotlight});
 
+  @override
+  $MatchInfosCopyWith<$Res>? get matchInfos;
   @override
   $ClipOffsetCopyWith<$Res>? get offset;
   @override
@@ -332,7 +355,8 @@ class __$$VideosEntryPayloadImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = null,
-    Object? description = null,
+    Object? description = freezed,
+    Object? matchInfos = freezed,
     Object? videoUrl = null,
     Object? tumbnail = freezed,
     Object? offset = freezed,
@@ -344,10 +368,14 @@ class __$$VideosEntryPayloadImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      matchInfos: freezed == matchInfos
+          ? _value.matchInfos
+          : matchInfos // ignore: cast_nullable_to_non_nullable
+              as MatchInfos?,
       videoUrl: null == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
@@ -378,6 +406,7 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
   _$VideosEntryPayloadImpl(
       {required this.title,
       required this.description,
+      required this.matchInfos,
       required this.videoUrl,
       required this.tumbnail,
       required this.offset,
@@ -387,7 +416,9 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
   @override
   final String title;
   @override
-  final String description;
+  final String? description;
+  @override
+  final MatchInfos? matchInfos;
   @override
   final String videoUrl;
   @override
@@ -401,7 +432,7 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
 
   @override
   String toString() {
-    return 'VideosEntryPayload(title: $title, description: $description, videoUrl: $videoUrl, tumbnail: $tumbnail, offset: $offset, clipUuid: $clipUuid, spotlight: $spotlight)';
+    return 'VideosEntryPayload(title: $title, description: $description, matchInfos: $matchInfos, videoUrl: $videoUrl, tumbnail: $tumbnail, offset: $offset, clipUuid: $clipUuid, spotlight: $spotlight)';
   }
 
   @override
@@ -412,6 +443,8 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.matchInfos, matchInfos) ||
+                other.matchInfos == matchInfos) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
             (identical(other.tumbnail, tumbnail) ||
@@ -424,8 +457,8 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, description, videoUrl,
-      tumbnail, offset, clipUuid, spotlight);
+  int get hashCode => Object.hash(runtimeType, title, description, matchInfos,
+      videoUrl, tumbnail, offset, clipUuid, spotlight);
 
   /// Create a copy of VideosEntryPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -440,7 +473,8 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
 abstract class _VideosEntryPayload implements VideosEntryPayload {
   factory _VideosEntryPayload(
       {required final String title,
-      required final String description,
+      required final String? description,
+      required final MatchInfos? matchInfos,
       required final String videoUrl,
       required final String? tumbnail,
       required final ClipOffset? offset,
@@ -450,7 +484,9 @@ abstract class _VideosEntryPayload implements VideosEntryPayload {
   @override
   String get title;
   @override
-  String get description;
+  String? get description;
+  @override
+  MatchInfos? get matchInfos;
   @override
   String get videoUrl;
   @override

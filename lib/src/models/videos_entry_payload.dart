@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_source_models/models/spreedsheet/clips/spotlight.dart';
 import 'package:player_source_models/models/spreedsheet/clips/clip_offset.dart';
+import 'package:video_generator/video_generator.dart';
 
 part 'videos_entry_payload.freezed.dart';
 
@@ -88,7 +89,8 @@ abstract class PlaylistCluster with _$PlaylistCluster {
 abstract class VideosEntryPayload with _$VideosEntryPayload {
   factory VideosEntryPayload({
     required String title,
-    required String description,
+    required String? description,
+    required MatchInfos? matchInfos,
     required String videoUrl,
     required String? tumbnail,
     required ClipOffset? offset,

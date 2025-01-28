@@ -164,6 +164,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "cross_file",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/cross_file-0.3.4+2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "crypto",
       "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/crypto-3.0.6",
       "packageUri": "lib/",
@@ -302,6 +308,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "file_picker",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/file_picker-8.1.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "firebase_core",
       "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/firebase_core-3.10.1",
       "packageUri": "lib/",
@@ -350,10 +362,22 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "flutter_easyloading",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/flutter_easyloading-3.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/flutter_lints-4.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "flutter_plugin_android_lifecycle",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.24",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
     },
     {
       "name": "flutter_portal",
@@ -366,6 +390,12 @@
       "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/flutter_riverpod-2.6.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "flutter_spinkit",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/flutter_spinkit-5.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_svg",
@@ -534,6 +564,12 @@
       "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/lints-4.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "lists",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/lists-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "logging",
@@ -1004,6 +1040,12 @@
       "languageVersion": "3.5"
     },
     {
+      "name": "unicode",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/unicode-0.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "universal_platform",
       "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/universal_platform-1.1.0",
       "packageUri": "lib/",
@@ -1014,6 +1056,54 @@
       "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/uri_parser-2.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.16"
+    },
+    {
+      "name": "url_launcher",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/url_launcher-6.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "url_launcher_android",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.14",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "url_launcher_ios",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "url_launcher_linux",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "url_launcher_macos",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "url_launcher_platform_interface",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "url_launcher_web",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "url_launcher_windows",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "uuid",
@@ -1178,13 +1268,19 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "youtube_explode_dart",
+      "rootUri": "file:///Users/igormidev/.pub-cache/hosted/pub.dev/youtube_explode_dart-2.3.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "dsf_video_player",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2025-01-28T13:19:54.740211Z",
+  "generated": "2025-01-28T14:36:13.990639Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///Users/igormidev/development/flutter",
