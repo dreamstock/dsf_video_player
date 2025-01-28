@@ -47,17 +47,17 @@ class FrameVideoPlayerImpl extends StatelessWidget {
                     children: [
                       const Spacer(),
                       ValueListenableBuilder<VideosEntryPayload?>(
-                          valueListenable: frame.currentPayload,
-                          builder: (context, payload, child) {
-                            final clipOffset = payload?.offset;
+                        valueListenable: frame.currentPayload,
+                        builder: (context, payload, child) {
+                          final clipOffset = payload?.offset;
 
-                            return DSFSeekBar(
-                              key: UniqueKey(),
-                              start: clipOffset?.start ?? Duration.zero,
-                              end: clipOffset?.end ??
-                                  frame.player.state.duration,
-                            );
-                          }),
+                          return DSFSeekBar(
+                            key: UniqueKey(),
+                            start: clipOffset?.start ?? Duration.zero,
+                            end: clipOffset?.end ?? frame.player.state.duration,
+                          );
+                        },
+                      ),
                       ColoredBox(
                         color: Colors.transparent,
                         child: Row(

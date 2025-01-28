@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:player_source_models/models/spreedsheet/clips/spotlight.dart';
 import 'package:player_source_models/models/spreedsheet/clips/clip_offset.dart';
+import 'package:player_source_models/models/spreedsheet/clips/spotlight.dart';
 import 'package:video_generator/video_generator.dart';
 
 part 'videos_entry_payload.freezed.dart';
@@ -26,10 +26,27 @@ abstract class PlaylistCluster with _$PlaylistCluster {
     throw Exception('No clip with uuid $selectedClipUuid found in the payload');
   }
 
-  @override
-  bool operator ==(Object other) {
-    // TODO: implement ==
-    return super == other;
+  PlaylistCluster operator +(PlaylistCluster other) {
+    final Map<GroupName, List<VideosEntryPayload>> newPayload = {};
+
+    for (final group in payload.entries) {
+      final groupName = group.key;
+      final groupPayload = group.value;
+      final otherGroupPayload = other.payload[groupName] ?? [];
+      newPayload[groupName] = groupPayload + otherGroupPayload;
+    }
+
+    for (final group in other.payload.entries) {
+      final groupName = group.key;
+      if (!newPayload.containsKey(groupName)) {
+        newPayload[groupName] = group.value;
+      }
+    }
+
+    return PlaylistCluster(
+      selectedClipUuid: other.selectedClipUuid,
+      payload: newPayload,
+    );
   }
 
   VideosEntryPayload get current {

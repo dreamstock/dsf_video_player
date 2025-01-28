@@ -133,6 +133,20 @@ class _$PlaylistClusterImpl extends _PlaylistCluster {
     return 'PlaylistCluster(selectedClipUuid: $selectedClipUuid, payload: $payload)';
   }
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PlaylistClusterImpl &&
+            (identical(other.selectedClipUuid, selectedClipUuid) ||
+                other.selectedClipUuid == selectedClipUuid) &&
+            const DeepCollectionEquality().equals(other._payload, _payload));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, selectedClipUuid,
+      const DeepCollectionEquality().hash(_payload));
+
   /// Create a copy of PlaylistCluster
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
