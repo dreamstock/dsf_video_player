@@ -44,7 +44,7 @@ abstract class PlaylistCluster with _$PlaylistCluster {
     }
 
     return PlaylistCluster(
-      selectedClipUuid: other.selectedClipUuid,
+      selectedClipUuid: selectedClipUuid,
       payload: newPayload,
     );
   }

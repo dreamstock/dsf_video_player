@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+
 import 'package:dart_debouncer/dart_debouncer.dart';
+import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:player_source_models/models/spreedsheet/clips/spotlight.dart';
-
-import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 
 class FramePayloadController {
   FramePayloadController._({
@@ -83,9 +83,22 @@ class FramePayloadController {
     await controller.player.pause();
   }
 
-  Future<void> start(double volume) async {
+  Future<void> startWithNewState(PlayerState state) async {
+    return startWithRawData(rate: state.rate, volume: state.volume);
+  }
+
+  Future<void> startWithRawData({
+    required double volume,
+    required double rate,
+  }) async {
     await controller.player.play();
-    await controller.player.setVolume(volume);
+    final currState = controller.player.state;
+    if (currState.volume != volume) {
+      await controller.player.setVolume(volume);
+    }
+    if (currState.rate != rate) {
+      await controller.player.setRate(rate);
+    }
   }
 
   void _onDisplayUpdate() {
@@ -103,9 +116,6 @@ class FramePayloadController {
   StreamSubscription<Duration> get positionListener {
     return player.stream.position.listen(
       (Duration position) async {
-        final spotPos = spotlight?.time;
-        if (spotPos == null) return;
-
         final pMil = position.inMilliseconds;
 
         final isDurrAboveMax = endDuration.inMilliseconds <= pMil;
@@ -114,6 +124,9 @@ class FramePayloadController {
           onEndClip?.call();
           return;
         }
+
+        final spotPos = spotlight?.time;
+        if (spotPos == null) return;
 
         if (didAlreadyDisplayFocusInThisRole && pMil < spotPos.inMilliseconds) {
           didAlreadyDisplayFocusInThisRole = false;

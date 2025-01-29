@@ -90,21 +90,24 @@ class _VideoPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.sizeOf(context).width < 600) {
+    if (MediaQuery.sizeOf(context).width < 1050) {
       return Column(
         children: [
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return Center(
-                child: SizedBox(
-                  width: constraints.maxWidth,
-                  height: constraints.maxWidth * 9.0 / 16.0,
-                  child: MultiSwitchPlayer(
-                    multiFrameController: controller,
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 630),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Center(
+                  child: SizedBox(
+                    width: constraints.maxWidth,
+                    height: constraints.maxWidth * 9.0 / 16.0,
+                    child: MultiSwitchPlayer(
+                      multiFrameController: controller,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           Expanded(
             child: SelectClip(controller: controller),
@@ -115,7 +118,7 @@ class _VideoPageWidget extends StatelessWidget {
     return Row(
       children: [
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 300),
+          constraints: const BoxConstraints(maxWidth: 600),
           child: SelectClip(controller: controller),
         ),
         Expanded(

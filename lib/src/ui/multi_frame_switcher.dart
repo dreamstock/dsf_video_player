@@ -13,35 +13,36 @@ class MultiSwitchPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: multiFrameController.payload,
-        builder: (context, payload, _) {
-          final String selectedClipUuid = payload.selectedClipUuid;
+      valueListenable: multiFrameController.payload,
+      builder: (context, payload, _) {
+        final String selectedClipUuid = payload.selectedClipUuid;
 
-          final frame1Clipuuid =
-              multiFrameController.frame1.currentPayload.value?.clipUuid;
-          final frame2Clipuuid =
-              multiFrameController.frame2.currentPayload.value?.clipUuid;
+        final frame1Clipuuid =
+            multiFrameController.frame1.currentPayload.value?.clipUuid;
+        final frame2Clipuuid =
+            multiFrameController.frame2.currentPayload.value?.clipUuid;
 
-          return Stack(
-            children: [
-              SizedBox.expand(
-                child: Opacity(
-                  opacity: selectedClipUuid == frame1Clipuuid ? 1.0 : 0.0,
-                  child: FrameVideoPlayerImpl(
-                    frame: multiFrameController.frame1,
-                  ),
+        return Stack(
+          children: [
+            SizedBox.expand(
+              child: Opacity(
+                opacity: selectedClipUuid == frame1Clipuuid ? 1.0 : 0.0,
+                child: FrameVideoPlayerImpl(
+                  frame: multiFrameController.frame1,
                 ),
               ),
-              SizedBox.expand(
-                child: Opacity(
-                  opacity: selectedClipUuid == frame2Clipuuid ? 1.0 : 0.0,
-                  child: FrameVideoPlayerImpl(
-                    frame: multiFrameController.frame2,
-                  ),
+            ),
+            SizedBox.expand(
+              child: Opacity(
+                opacity: selectedClipUuid == frame2Clipuuid ? 1.0 : 0.0,
+                child: FrameVideoPlayerImpl(
+                  frame: multiFrameController.frame2,
                 ),
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 }

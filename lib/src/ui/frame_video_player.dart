@@ -4,6 +4,7 @@ import 'package:dsf_video_player/src/ui/video_player_components/custom_dsf_mater
 import 'package:dsf_video_player/src/ui/video_player_components/custom_dsf_position_indicator.dart';
 import 'package:dsf_video_player/src/ui/video_player_components/custom_play_pause_video.dart';
 import 'package:dsf_video_player/src/ui/video_player_components/loading_buffer_component.dart';
+import 'package:dsf_video_player/src/ui/video_player_components/select_rate.dart';
 import 'package:dsf_video_player/src/ui/video_player_components/spotlight_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit_video/media_kit_video.dart';
@@ -98,22 +99,24 @@ class FrameVideoPlayerImpl extends StatelessWidget {
                                 );
                               },
                             ),
-                            const MaterialDesktopSkipNextButton(),
                             const MaterialDesktopVolumeButton(),
-                            ValueListenableBuilder<VideosEntryPayload?>(
-                              valueListenable: frame.currentPayload,
-                              builder: (context, payload, child) {
-                                final clipOffset = payload?.offset;
+                            if (!(MediaQuery.sizeOf(context).width < 1050)) ...[
+                              SelectRate(controller: frame.controller),
+                              ValueListenableBuilder<VideosEntryPayload?>(
+                                valueListenable: frame.currentPayload,
+                                builder: (context, payload, child) {
+                                  final clipOffset = payload?.offset;
 
-                                return CustomDSFPositionIndicator(
-                                  key: UniqueKey(),
-                                  start: clipOffset?.start ?? Duration.zero,
-                                  end: clipOffset?.end ??
-                                      frame.player.state.duration,
-                                );
-                              },
-                            ),
-                            const SizedBox(width: 12),
+                                  return CustomDSFPositionIndicator(
+                                    key: UniqueKey(),
+                                    start: clipOffset?.start ?? Duration.zero,
+                                    end: clipOffset?.end ??
+                                        frame.player.state.duration,
+                                  );
+                                },
+                              ),
+                              const SizedBox(width: 12),
+                            ],
                             const Spacer(),
                             const SizedBox(width: 8),
                             const MaterialDesktopFullscreenButton(),

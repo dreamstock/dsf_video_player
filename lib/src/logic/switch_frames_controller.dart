@@ -27,6 +27,9 @@ class SwitchFramesController {
     );
 
     controller.setListeners();
+    frame1.load(payload.current).then((_) {
+      controller.setNewOnEnd();
+    });
 
     return controller;
   }
@@ -48,7 +51,6 @@ class SwitchFramesController {
       frame1.player.pause();
       return;
     }
-    setNewOnEnd();
 
     payload.addListener(setNewOnEnd);
 
@@ -71,14 +73,14 @@ class SwitchFramesController {
 
     final isFrame1 = frame1.currentUuid == curr.clipUuid;
     if (isFrame1) {
-      frame1.start(frame2.player.state.volume);
+      frame1.startWithNewState(frame2.player.state);
       if (next != null) frame2.load(next);
       return;
     }
 
     final isFrame2 = frame2.currentUuid == curr.clipUuid;
     if (isFrame2) {
-      frame2.start(frame1.player.state.volume);
+      frame2.startWithNewState(frame1.player.state);
       if (next != null) frame1.load(next);
       return;
     }
@@ -86,7 +88,10 @@ class SwitchFramesController {
     // If not found, load the first frame
     await Future.wait([frame1.stop(), frame2.stop()]);
     await frame1.load(curr);
-    await frame1.start(1.0);
+    await frame1.startWithRawData(
+      rate: 1.0,
+      volume: 1.0,
+    );
     if (next != null) frame2.load(next);
   }
 

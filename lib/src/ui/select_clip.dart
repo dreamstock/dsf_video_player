@@ -56,7 +56,7 @@ class SelectClip extends StatelessWidget {
                     data: videoPayload,
                     isSelected: videoPayload.clipUuid == data.selectedClipUuid,
                     onTap: () {
-                      controller.selectClip(videoPayload.videoUrl);
+                      controller.selectClip(videoPayload.clipUuid);
                     },
                   );
                 },

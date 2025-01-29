@@ -29,7 +29,7 @@ class LoadingBufferComponent extends StatelessWidget {
                 ),
           ),
           Text(
-            '( this first loading may take a while )',
+            '( this loading may take a while )',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.grey,
                   fontWeight: FontWeight.w300,
