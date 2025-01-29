@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:dsf_video_player/src/core/mock_for_empty.dart';
 import 'package:dsf_video_player/src/logic/switch_frames_controller.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:dsf_video_player/src/ui/multi_frame_switcher.dart';
@@ -5,11 +8,13 @@ import 'package:dsf_video_player/src/ui/select_clip.dart';
 import 'package:flutter/material.dart';
 
 class DsfPlaylistPlayer extends StatefulWidget {
-  final PlaylistCluster payload;
+  final PlaylistCluster? payload;
+  final Widget? dontHaveDataWidget;
 
   const DsfPlaylistPlayer({
     super.key,
     required this.payload,
+    this.dontHaveDataWidget,
   });
 
   @override
@@ -19,13 +24,21 @@ class DsfPlaylistPlayer extends StatefulWidget {
 // Will tween opacity between two players, the current playing one will be visible
 // and the other will be loading in the background, with opacity 0.0.
 class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
+  late final bool isMock;
   late final SwitchFramesController controller;
   @override
   void initState() {
     super.initState();
-    if (widget.payload.payload.isEmpty) {
+    final payload = widget.payload;
+    if (payload != null && payload.payload.isNotEmpty) {
+      isMock = false;
       controller = SwitchFramesController.initialize(
-        payload: widget.payload,
+        payload: payload,
+      );
+    } else {
+      isMock = true;
+      controller = SwitchFramesController.initialize(
+        payload: mock,
       );
     }
   }
@@ -38,8 +51,66 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.payload.payload.isEmpty) {
-      return const SizedBox();
+    if (!isMock) {
+      return _VideoPageWidget(controller: controller);
+    }
+
+    return ImageFiltered(
+      enabled: true,
+      imageFilter: ImageFilter.blur(
+        sigmaX: 8,
+        sigmaY: 8,
+        tileMode: TileMode.decal,
+      ),
+      child: IgnorePointer(
+        ignoring: true,
+        child: Stack(
+          children: [
+            SizedBox.expand(
+              child: _VideoPageWidget(controller: controller),
+            ),
+            if (widget.dontHaveDataWidget != null) ...[
+              SizedBox.expand(
+                child: widget.dontHaveDataWidget!,
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _VideoPageWidget extends StatelessWidget {
+  const _VideoPageWidget({
+    required this.controller,
+  });
+
+  final SwitchFramesController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    if (MediaQuery.sizeOf(context).width < 600) {
+      return Column(
+        children: [
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return Center(
+                child: SizedBox(
+                  width: constraints.maxWidth,
+                  height: constraints.maxWidth * 9.0 / 16.0,
+                  child: MultiSwitchPlayer(
+                    multiFrameController: controller,
+                  ),
+                ),
+              );
+            },
+          ),
+          Expanded(
+            child: SelectClip(controller: controller),
+          ),
+        ],
+      );
     }
     return Row(
       children: [
@@ -50,11 +121,13 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
         Expanded(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              return SizedBox(
-                width: constraints.maxWidth,
-                height: constraints.maxWidth * 9.0 / 16.0,
-                child: MultiSwitchPlayer(
-                  multiFrameController: controller,
+              return Center(
+                child: SizedBox(
+                  width: constraints.maxWidth,
+                  height: constraints.maxWidth * 9.0 / 16.0,
+                  child: MultiSwitchPlayer(
+                    multiFrameController: controller,
+                  ),
                 ),
               );
             },

@@ -1,3 +1,4 @@
+import 'package:dsf_video_player/src/core/mock_for_empty.dart';
 import 'package:dsf_video_player/src/logic/frame_payload_controller.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:flutter/material.dart';
@@ -26,46 +27,30 @@ class SwitchFramesController {
     );
 
     controller.setListeners();
+
     return controller;
   }
   // Only modify intern
   final ValueNotifier<PlaylistCluster> payload;
 
-  // CurrentlyPlaying _currentlyPlaying = CurrentlyPlaying.frame1;
   final FramePayloadController frame1;
   final FramePayloadController frame2;
 
   void dispose() {
+    payload.removeListener(setNewOnEnd);
     payload.dispose();
     frame1.dispose();
     frame2.dispose();
   }
 
   void setListeners() {
-    payload.addListener(() async {
-      final curr = payload.value.current;
-      final next = payload.value.next;
+    if (kMockId == payload.value.selectedClipUuid) {
+      frame1.player.pause();
+      return;
+    }
+    setNewOnEnd();
 
-      final isFrame1 = frame1.currentUuid == curr.clipUuid;
-      if (isFrame1) {
-        frame1.start(frame2.player.state.volume);
-        if (next != null) frame2.load(next);
-        return;
-      }
-
-      final isFrame2 = frame2.currentUuid == curr.clipUuid;
-      if (isFrame2) {
-        frame2.start(frame1.player.state.volume);
-        if (next != null) frame1.load(next);
-        return;
-      }
-
-      // If not found, load the first frame
-      await Future.wait([frame1.stop(), frame2.stop()]);
-      await frame1.load(curr);
-      await frame1.start(1.0);
-      if (next != null) frame2.load(next);
-    });
+    payload.addListener(setNewOnEnd);
 
     void switchToNext() {
       final next = payload.value.next;
@@ -78,6 +63,31 @@ class SwitchFramesController {
 
     frame1.onEndClip = switchToNext;
     frame2.onEndClip = switchToNext;
+  }
+
+  void setNewOnEnd() async {
+    final curr = payload.value.current;
+    final next = payload.value.next;
+
+    final isFrame1 = frame1.currentUuid == curr.clipUuid;
+    if (isFrame1) {
+      frame1.start(frame2.player.state.volume);
+      if (next != null) frame2.load(next);
+      return;
+    }
+
+    final isFrame2 = frame2.currentUuid == curr.clipUuid;
+    if (isFrame2) {
+      frame2.start(frame1.player.state.volume);
+      if (next != null) frame1.load(next);
+      return;
+    }
+
+    // If not found, load the first frame
+    await Future.wait([frame1.stop(), frame2.stop()]);
+    await frame1.load(curr);
+    await frame1.start(1.0);
+    if (next != null) frame2.load(next);
   }
 
   void selectGroup(GroupName name) {

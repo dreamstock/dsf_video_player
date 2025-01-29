@@ -8,11 +8,7 @@ ref: &coreversion d79b806fcda41012ad2e5ed592cdaee6b12127d6
 environment:
   sdk: ^3.5.3
   flutter: ">=1.17.0"
-dependency_overrides:
-  dsf_video_clip_creator:
-    git:
-      url: git@github.com:dreamstock/dsf-video-clip-editor.git
-      ref: c72875c4f9ecea0ce7ccddd693020015e8f7462c 
+dependency_overrides: 
   video_generator:
     git: 
       url: git@github.com:dreamstock/highlights_generator.git
@@ -28,6 +24,7 @@ dependency_overrides:
   intl: ^0.20.0
 
 dependencies:
+  flutter_svg: ^2.0.17
   dart_debouncer: ^1.1.0
   youtube_explode_dart: ^2.3.6
   dio: ^5.7.0
@@ -50,10 +47,6 @@ dependencies:
   media_kit_libs_macos_video: any
   media_kit_libs_windows_video: any
   media_kit_libs_linux: any
-  dsf_video_clip_creator:
-    git:
-      url: git@github.com:dreamstock/dsf-video-clip-editor.git
-      ref: c72875c4f9ecea0ce7ccddd693020015e8f7462c 
   video_generator:
     git: 
       url: git@github.com:dreamstock/highlights_generator.git
