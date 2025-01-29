@@ -54,7 +54,8 @@ class SwitchFramesController {
 
     payload.addListener(setNewOnEnd);
 
-    void switchToNext() {
+    void switchToNext(String clipUuid) {
+      if (clipUuid != payload.value.selectedClipUuid) return;
       final next = payload.value.next;
       if (next != null) {
         payload.value = payload.value.copyWith(
@@ -89,8 +90,8 @@ class SwitchFramesController {
     await Future.wait([frame1.stop(), frame2.stop()]);
     await frame1.load(curr);
     await frame1.startWithRawData(
-      rate: 1.0,
-      volume: 1.0,
+      rate: 100.0,
+      volume: 100.0,
     );
     if (next != null) frame2.load(next);
   }

@@ -111,7 +111,7 @@ class FramePayloadController {
     }
   }
 
-  void Function()? onEndClip;
+  void Function(String clipUuid)? onEndClip;
 
   StreamSubscription<Duration> get positionListener {
     return player.stream.position.listen(
@@ -121,7 +121,7 @@ class FramePayloadController {
         final isDurrAboveMax = endDuration.inMilliseconds <= pMil;
         if (isDurrAboveMax) {
           await player.pause();
-          onEndClip?.call();
+          if (currentUuid != null) onEndClip?.call(currentUuid!);
           return;
         }
 
