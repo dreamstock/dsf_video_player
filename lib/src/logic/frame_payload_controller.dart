@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:dart_debouncer/dart_debouncer.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
@@ -71,26 +70,25 @@ class FramePayloadController {
   bool get isDone => currentPayload.value != null;
 
   Future<void> stop() async {
-    print('|| stop');
     await controller.player.pause();
+  }
+
+  void cleanListeners() {
     _positionSub?.cancel();
     _positionSub = null;
   }
 
-  Future<void> load(VideosEntryPayload payload) async {
-    print('|| load started');
+  Future<void> loadVideoData(VideosEntryPayload payload) async {
     _positionSub?.cancel();
     _positionSub = null;
     await controller.player.pause();
     currentPayload.value = payload;
-    await player.open(Media(payload.videoUrl));
+    await player.open(Media(payload.videoUrl), play: true);
     await controller.player.seek(startDuration);
     await controller.player.pause();
-    print('|| load ended');
   }
 
   void setNewListener() {
-    print('|| setNewListener $currentUuid');
     _positionSub?.cancel();
     _positionSub = null;
     _positionSub = player.stream.position.listen(
@@ -98,14 +96,15 @@ class FramePayloadController {
         final pMil = position.inMilliseconds;
 
         final isDurrAboveMax = endDuration.inMilliseconds <= pMil;
-        // print('|| setNewListener position: ${position.inMilliseconds} <= $pMil');
+        // print(
+        //   '|| (${currentUuid != null}) setNewListener position: ${endDuration.inMilliseconds} <= $pMil (${endDuration.inMilliseconds <= pMil})',
+        // );
         if (isDurrAboveMax) {
-          // print('|| setNewListener isDurrAboveMax');
           // _positionSub?.cancel();
           // _positionSub = null;
           // await player.pause();
-          await stop();
           if (currentUuid != null) onEndClip?.call(currentUuid!);
+          await stop();
           return;
         }
 
@@ -133,7 +132,6 @@ class FramePayloadController {
     required double volume,
     required double rate,
   }) async {
-    print('startWithRawData');
     setNewListener();
     final currState = controller.player.state;
     if (currState.volume != volume) {
@@ -147,7 +145,6 @@ class FramePayloadController {
 
   void _onDisplayUpdate() {
     if (isDisplayFocusTime.value) {
-      log('|| _onDisplayUpdate');
       player.pause();
       debounder.resetDebounce(() {
         isDisplayFocusTime.value = false;

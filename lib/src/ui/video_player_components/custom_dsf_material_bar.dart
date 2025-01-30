@@ -197,6 +197,7 @@ class DSFSeekBarState extends State<DSFSeekBar> {
 
   @override
   Widget build(BuildContext context) {
+    // print(positionPercent);
     return Container(
       clipBehavior: Clip.none,
       margin: _theme(context).seekBarMargin,
