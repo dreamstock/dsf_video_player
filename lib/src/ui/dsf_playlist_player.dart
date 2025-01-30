@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:dsf_video_player/src/core/mock_for_empty.dart';
 import 'package:dsf_video_player/src/logic/frame_manager.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
-import 'package:dsf_video_player/src/ui/multi_frame_switcher.dart';
+import 'package:dsf_video_player/src/ui/frame_player.dart';
 import 'package:dsf_video_player/src/ui/select_clip.dart';
 import 'package:flutter/material.dart';
 
@@ -107,6 +107,7 @@ class _VideoPageWidgetState extends State<_VideoPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
     if (MediaQuery.sizeOf(context).width < 1050) {
       return Column(
         children: [
@@ -141,21 +142,26 @@ class _VideoPageWidgetState extends State<_VideoPageWidget> {
         ),
         const SizedBox(width: 16),
         Expanded(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return Center(
-                child: SizedBox(
-                  width: constraints.maxWidth,
-                  height: constraints.maxWidth * 9.0 / 16.0,
-                  child: FramePlayer(
-                    manager: widget.manager,
+          child: Center(
+            child: AspectRatio(
+              aspectRatio: 16.0 / 9.0,
+              child: Stack(
+                children: [
+                  SizedBox.expand(
+                    child: FramePlayer(manager: widget.manager),
                   ),
-                  // child: MultiSwitchPlayer(
-                  //   multiFrameController: controller,
-                  // ),
-                ),
-              );
-            },
+                  IgnorePointer(
+                    child: SizedBox.expand(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: primary, width: 4),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 16),

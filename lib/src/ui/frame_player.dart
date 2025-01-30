@@ -5,6 +5,7 @@ import 'package:dsf_video_player/src/ui/video_player_components/custom_dsf_posit
 import 'package:dsf_video_player/src/ui/video_player_components/custom_play_pause_video.dart';
 import 'package:dsf_video_player/src/ui/video_player_components/loading_buffer_component.dart';
 import 'package:dsf_video_player/src/ui/video_player_components/select_rate.dart';
+import 'package:dsf_video_player/src/ui/video_player_components/spotlight_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:player_source_models/models/spreedsheet/clips/clip_offset.dart';
@@ -18,19 +19,30 @@ class FramePlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSmall = MediaQuery.sizeOf(context).width < 1050;
     return MaterialDesktopVideoControlsTheme(
-      normal: const MaterialDesktopVideoControlsThemeData(
+      normal: MaterialDesktopVideoControlsThemeData(
         toggleFullscreenOnDoublePress: true,
         seekBarHoverHeight: 12,
         seekBarHeight: 8,
         seekBarMargin: EdgeInsets.zero,
         buttonBarHeight: 86,
-        seekBarThumbColor: Colors.orange,
+        seekBarPositionColor: Theme.of(context).colorScheme.primary,
         seekBarThumbSize: 18,
         displaySeekBar: false,
         seekBarContainerHeight: 8,
       ),
-      fullscreen: const MaterialDesktopVideoControlsThemeData(),
+      fullscreen: MaterialDesktopVideoControlsThemeData(
+        toggleFullscreenOnDoublePress: true,
+        seekBarHoverHeight: 12,
+        seekBarHeight: 8,
+        seekBarMargin: EdgeInsets.zero,
+        buttonBarHeight: 86,
+        seekBarPositionColor: Theme.of(context).colorScheme.primary,
+        seekBarThumbSize: 18,
+        displaySeekBar: false,
+        seekBarContainerHeight: 8,
+      ),
       child: Video(
         controller: manager.videoController,
         fill: Colors.transparent,
@@ -85,10 +97,16 @@ class FramePlayer extends StatelessWidget {
                                     },
                                   ),
                                   const MaterialDesktopVolumeButton(),
-                                  if (!(MediaQuery.sizeOf(context).width <
-                                      1050)) ...[
+                                  if (!isSmall) ...[
+                                    if (manager.totalLenght > 1) ...[
+                                      const SizedBox(width: 8),
+                                      const MaterialDesktopSkipPreviousButton(),
+                                      const MaterialDesktopSkipNextButton(),
+                                      const SizedBox(width: 8),
+                                    ],
                                     SelectRate(
-                                        controller: manager.videoController),
+                                      controller: manager.videoController,
+                                    ),
                                     const SizedBox(width: 12),
                                     Builder(
                                       builder: (context) {
@@ -114,34 +132,34 @@ class FramePlayer extends StatelessWidget {
                             ),
                           ],
                         ),
+                        IgnorePointer(
+                          child: Builder(
+                            builder: (context) {
+                              final spotlight = payload.spotlight;
+                              if (spotlight == null) {
+                                return const SizedBox();
+                              }
 
-                        // IgnorePointer(
-                        //   child: Builder(
-                        //     builder: (context) {
-                        //       final spotlight = payload.spotlight;
-                        //       if (spotlight == null) {
-                        //         return const SizedBox();
-                        //       }
-
-                        //       return LayoutBuilder(
-                        //           builder: (context, constraints) {
-                        //         return ValueListenableBuilder<bool>(
-                        //           valueListenable: frame.isDisplayFocusTime,
-                        //           builder: (context, value, child) {
-                        //             return Opacity(
-                        //               opacity: value ? 1 : 0,
-                        //               child: SpotlightWidget(
-                        //                 key: UniqueKey(),
-                        //                 spotlight: spotlight,
-                        //                 constraints: constraints,
-                        //               ),
-                        //             );
-                        //           },
-                        //         );
-                        //       },);
-                        //     },
-                        //   ),
-                        // ),
+                              return LayoutBuilder(
+                                builder: (context, constraints) {
+                                  return ValueListenableBuilder<bool>(
+                                    valueListenable: manager.isDisplayFocusTime,
+                                    builder: (context, value, child) {
+                                      return Opacity(
+                                        opacity: value ? 1 : 0,
+                                        child: SpotlightWidget(
+                                          key: UniqueKey(),
+                                          spotlight: spotlight,
+                                          constraints: constraints,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
                       ],
                     );
                   });
