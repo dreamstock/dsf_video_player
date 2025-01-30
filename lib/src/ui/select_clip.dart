@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dsf_video_player/src/logic/switch_frames_controller.dart';
+import 'package:dsf_video_player/src/logic/frame_manager.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:dsf_video_player/src/ui/video_select_components/video_display_tile.dart';
 import 'package:dsf_video_player/src/ui/video_select_components/video_group_button.dart';
@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class SelectClip extends StatefulWidget {
-  final SwitchFramesController controller;
-  const SelectClip({super.key, required this.controller});
+  final FrameManager manager;
+  const SelectClip({super.key, required this.manager});
 
   @override
   State<SelectClip> createState() => _SelectClipState();
@@ -35,7 +35,7 @@ class _SelectClipState extends State<SelectClip> {
     final dio = Dio();
 
     return ValueListenableBuilder(
-        valueListenable: widget.controller.payload,
+        valueListenable: widget.manager.currentCluster,
         builder: (context, data, _) {
           final selectedPayloadEntry = data.selectedGroupName;
 
@@ -59,7 +59,7 @@ class _SelectClipState extends State<SelectClip> {
                                   groupName: name,
                                   isSelected: isSelected,
                                   onTap: () {
-                                    widget.controller.selectGroup(name);
+                                    widget.manager.jumpToGroupWithName(name);
                                   },
                                 );
                               })
@@ -84,7 +84,7 @@ class _SelectClipState extends State<SelectClip> {
                     data: videoPayload,
                     isSelected: videoPayload.clipUuid == data.selectedClipUuid,
                     onTap: () {
-                      widget.controller.selectClip(videoPayload.clipUuid);
+                      widget.manager.jumpToClipWithId(videoPayload.clipUuid);
                     },
                   );
                 },

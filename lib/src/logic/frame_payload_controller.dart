@@ -95,9 +95,6 @@ class FramePayloadController {
         final pMil = position.inMilliseconds;
 
         final isDurrAboveMax = endDuration.inMilliseconds <= pMil;
-        // print(
-        //   '|| (${currentUuid != null}) setNewListener position: ${endDuration.inMilliseconds} <= $pMil (${endDuration.inMilliseconds <= pMil})',
-        // );
         if (isDurrAboveMax) {
           // _positionSub?.cancel();
           // _positionSub = null;
