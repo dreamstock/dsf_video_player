@@ -13,11 +13,13 @@ class SwitchFramesController {
   factory SwitchFramesController.initialize({
     required PlaylistCluster payload,
   }) {
+    final curr = payload.current;
+    final next = payload.next;
     final frame1 = FramePayloadController.initialize(
-      payload: payload.current,
+      payload: curr,
     );
     final frame2 = FramePayloadController.initialize(
-      payload: payload.next,
+      payload: next,
     );
 
     final controller = SwitchFramesController._(
@@ -26,9 +28,20 @@ class SwitchFramesController {
       frame2: frame2,
     );
 
-    controller.setListeners();
-    frame1.load(payload.current).then((_) {
-      controller.setNewOnEnd();
+    frame1.load(curr).then((_) {
+      controller.setListeners();
+
+      // frame1.startWithRawData(frame2.player.state);
+      frame1
+          .startWithRawData(
+        rate: 1.0,
+        volume: 0.0,
+        // rate: 100.0,
+        // volume: 100.0,
+      )
+          .then((_) {
+        if (next != null) frame2.load(next);
+      });
     });
 
     return controller;
@@ -55,7 +68,11 @@ class SwitchFramesController {
     payload.addListener(setNewOnEnd);
 
     void switchToNext(String clipUuid) {
-      if (clipUuid != payload.value.selectedClipUuid) return;
+      if (clipUuid != payload.value.selectedClipUuid) {
+        print('|| switchToNext CANCELED');
+        return;
+      }
+      print('|| switchToNext CANCELED');
       final next = payload.value.next;
       if (next != null) {
         payload.value = payload.value.copyWith(
@@ -71,6 +88,7 @@ class SwitchFramesController {
   void setNewOnEnd() async {
     final curr = payload.value.current;
     final next = payload.value.next;
+    print('|| setNewOnEnd');
 
     final isFrame1 = frame1.currentUuid == curr.clipUuid;
     if (isFrame1) {
@@ -90,8 +108,10 @@ class SwitchFramesController {
     await Future.wait([frame1.stop(), frame2.stop()]);
     await frame1.load(curr);
     await frame1.startWithRawData(
-      rate: 100.0,
-      volume: 100.0,
+      rate: 1.0,
+      volume: 0.0,
+      // rate: 100.0,
+      // volume: 100.0,
     );
     if (next != null) frame2.load(next);
   }

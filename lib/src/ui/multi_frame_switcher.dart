@@ -27,16 +27,22 @@ class MultiSwitchPlayer extends StatelessWidget {
             SizedBox.expand(
               child: Opacity(
                 opacity: selectedClipUuid == frame1Clipuuid ? 1.0 : 0.0,
-                child: FrameVideoPlayerImpl(
-                  frame: multiFrameController.frame1,
+                child: IgnorePointer(
+                  ignoring: selectedClipUuid != frame1Clipuuid,
+                  child: FrameVideoPlayerImpl(
+                    frame: multiFrameController.frame1,
+                  ),
                 ),
               ),
             ),
             SizedBox.expand(
               child: Opacity(
                 opacity: selectedClipUuid == frame2Clipuuid ? 1.0 : 0.0,
-                child: FrameVideoPlayerImpl(
-                  frame: multiFrameController.frame2,
+                child: IgnorePointer(
+                  ignoring: selectedClipUuid != frame2Clipuuid,
+                  child: FrameVideoPlayerImpl(
+                    frame: multiFrameController.frame2,
+                  ),
                 ),
               ),
             ),

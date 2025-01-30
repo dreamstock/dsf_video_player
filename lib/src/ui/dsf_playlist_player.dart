@@ -117,10 +117,12 @@ class _VideoPageWidget extends StatelessWidget {
     }
     return Row(
       children: [
+        const SizedBox(width: 16),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
+          constraints: const BoxConstraints(maxWidth: 500),
           child: SelectClip(controller: controller),
         ),
+        const SizedBox(width: 16),
         Expanded(
           child: LayoutBuilder(
             builder: (context, constraints) {
@@ -136,6 +138,7 @@ class _VideoPageWidget extends StatelessWidget {
             },
           ),
         ),
+        const SizedBox(width: 16),
       ],
     );
   }

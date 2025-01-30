@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dart_debouncer/dart_debouncer.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
@@ -23,7 +24,6 @@ class FramePayloadController {
     );
 
     frame.isDisplayFocusTime.addListener(frame._onDisplayUpdate);
-    frame._positionSub = frame.positionListener;
 
     return frame;
   }
@@ -57,12 +57,12 @@ class FramePayloadController {
     timerDuration: const Duration(milliseconds: 1500),
   );
 
-  late final StreamSubscription<Duration> _positionSub;
+  StreamSubscription<Duration>? _positionSub;
 
   void dispose() {
     player.dispose();
     currentPayload.dispose();
-    _positionSub.cancel();
+    _positionSub?.cancel();
     isDisplayFocusTime.removeListener(_onDisplayUpdate);
     isDisplayFocusTime.dispose();
   }
@@ -71,56 +71,40 @@ class FramePayloadController {
   bool get isDone => currentPayload.value != null;
 
   Future<void> stop() async {
+    print('|| stop');
     await controller.player.pause();
+    _positionSub?.cancel();
+    _positionSub = null;
   }
 
   Future<void> load(VideosEntryPayload payload) async {
-    // controller.player.setVolume(0);
+    print('|| load started');
+    _positionSub?.cancel();
+    _positionSub = null;
     await controller.player.pause();
     currentPayload.value = payload;
-    player.open(Media(payload.videoUrl));
+    await player.open(Media(payload.videoUrl));
     await controller.player.seek(startDuration);
     await controller.player.pause();
+    print('|| load ended');
   }
 
-  Future<void> startWithNewState(PlayerState state) async {
-    return startWithRawData(rate: state.rate, volume: state.volume);
-  }
-
-  Future<void> startWithRawData({
-    required double volume,
-    required double rate,
-  }) async {
-    await controller.player.play();
-    final currState = controller.player.state;
-    if (currState.volume != volume) {
-      await controller.player.setVolume(volume);
-    }
-    if (currState.rate != rate) {
-      await controller.player.setRate(rate);
-    }
-  }
-
-  void _onDisplayUpdate() {
-    if (isDisplayFocusTime.value) {
-      player.pause();
-      debounder.resetDebounce(() {
-        isDisplayFocusTime.value = false;
-        player.play();
-      });
-    }
-  }
-
-  void Function(String clipUuid)? onEndClip;
-
-  StreamSubscription<Duration> get positionListener {
-    return player.stream.position.listen(
+  void setNewListener() {
+    print('|| setNewListener $currentUuid');
+    _positionSub?.cancel();
+    _positionSub = null;
+    _positionSub = player.stream.position.listen(
       (Duration position) async {
         final pMil = position.inMilliseconds;
 
         final isDurrAboveMax = endDuration.inMilliseconds <= pMil;
+        // print('|| setNewListener position: ${position.inMilliseconds} <= $pMil');
         if (isDurrAboveMax) {
-          await player.pause();
+          // print('|| setNewListener isDurrAboveMax');
+          // _positionSub?.cancel();
+          // _positionSub = null;
+          // await player.pause();
+          await stop();
           if (currentUuid != null) onEndClip?.call(currentUuid!);
           return;
         }
@@ -140,4 +124,37 @@ class FramePayloadController {
       },
     );
   }
+
+  Future<void> startWithNewState(PlayerState state) async {
+    return startWithRawData(rate: state.rate, volume: state.volume);
+  }
+
+  Future<void> startWithRawData({
+    required double volume,
+    required double rate,
+  }) async {
+    print('startWithRawData');
+    setNewListener();
+    final currState = controller.player.state;
+    if (currState.volume != volume) {
+      await controller.player.setVolume(volume);
+    }
+    if (currState.rate != rate) {
+      await controller.player.setRate(rate);
+    }
+    await controller.player.play();
+  }
+
+  void _onDisplayUpdate() {
+    if (isDisplayFocusTime.value) {
+      log('|| _onDisplayUpdate');
+      player.pause();
+      debounder.resetDebounce(() {
+        isDisplayFocusTime.value = false;
+        player.play();
+      });
+    }
+  }
+
+  void Function(String clipUuid)? onEndClip;
 }

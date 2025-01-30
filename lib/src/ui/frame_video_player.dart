@@ -102,6 +102,7 @@ class FrameVideoPlayerImpl extends StatelessWidget {
                             const MaterialDesktopVolumeButton(),
                             if (!(MediaQuery.sizeOf(context).width < 1050)) ...[
                               SelectRate(controller: frame.controller),
+                              const SizedBox(width: 12),
                               ValueListenableBuilder<VideosEntryPayload?>(
                                 valueListenable: frame.currentPayload,
                                 builder: (context, payload, child) {
