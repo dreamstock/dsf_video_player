@@ -67,7 +67,6 @@ class FramePayloadController {
   }
 
   Player get player => controller.player;
-  bool get isDone => currentPayload.value != null;
 
   Future<void> stop() async {
     await controller.player.pause();
@@ -82,8 +81,8 @@ class FramePayloadController {
     _positionSub?.cancel();
     _positionSub = null;
     await controller.player.pause();
-    currentPayload.value = payload;
     await player.open(Media(payload.videoUrl), play: true);
+    currentPayload.value = payload;
     await controller.player.seek(startDuration);
     await controller.player.pause();
   }

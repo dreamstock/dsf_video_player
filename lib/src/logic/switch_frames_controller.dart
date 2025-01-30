@@ -86,7 +86,7 @@ class SwitchFramesController {
 
     final isFrame1 = frame1.currentUuid == curr.clipUuid;
     // print(
-    //     '(${frame2.currentUuid == curr.clipUuid || isFrame1} )isFrame1: $isFrame1 || isFrame2: ${frame2.currentUuid == curr.clipUuid}');
+    //     '(${frame2.currentUuid == curr.clipUuid || isFrame1} )is Frame1: $isFrame1 || isFrame2: ${frame2.currentUuid == curr.clipUuid}');
     if (isFrame1) {
       frame2.cleanListeners();
       frame1.startWithNewState(frame2.player.state);
