@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 import 'package:video_generator/video_generator.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
@@ -36,222 +36,231 @@ class VideoDisplayTile extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      child: AnimatedContainer(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
-        duration: const Duration(milliseconds: 400),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? const Color.fromARGB(66, 187, 53, 0)
-              // ? const Color(0xFF1E1D1D).withOpacity(0.8)
-              : const Color(0xFF1E1D1D).withOpacity(0.5),
-          border: Border.all(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 12.0),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          decoration: BoxDecoration(
             color: isSelected
-                ? const Color(0xFFFF4A01).withOpacity(0.4)
-                : const Color(0xFF1E1D1D).withOpacity(0.8),
-            width: isSelected ? 2 : 1,
+                ? const Color.fromARGB(66, 187, 53, 0)
+                // ? const Color(0xFF1E1D1D).withOpacity(0.8)
+                : const Color(0xFF1E1D1D).withOpacity(0.5),
+            border: Border.all(
+              color: isSelected
+                  ? const Color(0xFFFF4A01).withOpacity(0.4)
+                  : const Color(0xFF1E1D1D).withOpacity(0.8),
+              width: isSelected ? 2 : 1,
+            ),
+            borderRadius: BorderRadius.circular(8),
           ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: FutureBuilder(future: () async {
-          if (!isYoutube) return null;
-          return yt.videos.get(videoUrl);
-        }(), builder: (context, snapshot) {
-          final youtubeData = snapshot.data;
-          final isLoading = snapshot.connectionState != ConnectionState.done;
+          child: FutureBuilder(future: () async {
+            if (!isYoutube) return null;
+            return yt.videos.get(videoUrl);
+          }(), builder: (context, snapshot) {
+            final youtubeData = snapshot.data;
+            final isLoading = snapshot.connectionState != ConnectionState.done;
 
-          return Row(
-            children: [
-              const SizedBox(width: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: SizedBox(
-                  height: 52,
-                  child: AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: Builder(builder: (context) {
-                      final String tumb;
-                      if (youtubeData != null) {
-                        tumb = youtubeData.thumbnails.highResUrl;
-                      } else {
-                        tumb = data.tumbnail ?? '';
-                      }
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Row(
+                children: [
+                  const SizedBox(width: 12),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: SizedBox(
+                      height: 52,
+                      child: AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Builder(builder: (context) {
+                          final String tumb;
+                          if (youtubeData != null) {
+                            tumb = youtubeData.thumbnails.highResUrl;
+                          } else {
+                            tumb = data.tumbnail ?? '';
+                          }
 
-                      if (tumb.isEmpty) {
-                        if (isLoading) {
-                          return const Center(
-                            child: Icon(Icons.insert_photo_rounded),
+                          if (tumb.isEmpty) {
+                            if (isLoading) {
+                              return const Center(
+                                child: Icon(Icons.insert_photo_rounded),
+                              );
+                            }
+
+                            return const Center(
+                              child: Text('Loading...'),
+                            );
+                          }
+
+                          return Image.network(
+                            tumb,
+                            fit: BoxFit.cover,
+                            loadingBuilder: _hangleImageLoading,
+                            errorBuilder: _handleImageError,
                           );
-                        }
-
-                        return const Center(
-                          child: Text('Loading...'),
-                        );
-                      }
-
-                      return Image.network(
-                        tumb,
-                        fit: BoxFit.cover,
-                        loadingBuilder: _hangleImageLoading,
-                        errorBuilder: _handleImageError,
-                      );
-                    }),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      isYoutube
-                          ? (isLoading
-                              ? 'Loading...'
-                              : (youtubeData?.title ?? title))
-                          : title,
-                      style: TextStyle(
-                        color: isSelected ? Colors.white : Colors.grey[300],
-                        fontSize: 15,
-                        fontWeight:
-                            isSelected ? FontWeight.bold : FontWeight.w300,
+                        }),
                       ),
-                      maxLines: 2,
                     ),
-                    if (youtubeData != null)
-                      Text(
-                        /// Max of 60 caracters
-                        '${youtubeData.description.replaceAll('\n', '').substring(
-                              0,
-                              youtubeData.description
-                                          .replaceAll('\n', '')
-                                          .length >
-                                      60
-                                  ? 60
-                                  : null,
-                            )}...',
-                        // title,
-                        style: TextStyle(
-                          color: Colors.grey[500],
-                          fontSize: 12,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.w300,
-                        ),
-                        maxLines: 2,
-                      ),
-                    if (youtubeData == null &&
-                        description != null &&
-                        description.isNotEmpty)
-                      FittedBox(
-                        child: Text(
-                          description,
-                          // title,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          isYoutube
+                              ? (isLoading
+                                  ? 'Loading...'
+                                  : (youtubeData?.title ?? title))
+                              : title,
                           style: TextStyle(
-                            color: Colors.grey[500],
-                            fontSize: 12,
+                            color: isSelected ? Colors.white : Colors.grey[300],
+                            fontSize: 15,
                             fontWeight:
                                 isSelected ? FontWeight.bold : FontWeight.w300,
                           ),
+                          maxLines: 2,
                         ),
-                      ),
-                    if (matchInfo != null) ...[
-                      Text(
-                        '${matchInfo.date.namedDisplayDate} - ${switch (matchInfo.playerTeamSide) {
-                          MatchSide.home => 'Played home',
-                          MatchSide.away => 'Played away',
-                          MatchSide.neutral => 'Played in neutral ground',
-                        }}',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 13,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Tooltip(
-                message: 'Download clip',
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(30),
-                  onTap: () async {
-                    try {
-                      await EasyLoading.show(status: 'Downloading...');
-                      final fileName =
-                          'video_clip_${const Uuid().v4().split('-').first}.mp4';
-                      final String? outputFile =
-                          await FilePicker.platform.saveFile(
-                        dialogTitle: 'Please select an output file:',
-                        fileName: fileName,
-                      );
+                        if (youtubeData != null)
+                          Text(
+                            /// Max of 60 caracters
+                            '${youtubeData.description.replaceAll('\n', '').substring(
+                                  0,
+                                  youtubeData.description
+                                              .replaceAll('\n', '')
+                                              .length >
+                                          60
+                                      ? 60
+                                      : null,
+                                )}...',
+                            // title,
+                            style: TextStyle(
+                              color: Colors.grey[500],
+                              fontSize: 12,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.w300,
+                            ),
+                            maxLines: 2,
+                          ),
+                        if (youtubeData == null &&
+                            description != null &&
+                            description.isNotEmpty)
+                          FittedBox(
+                            child: Text(
+                              description,
+                              // title,
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 12,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                        if (matchInfo != null) ...[
+                          Text(
+                            '${matchInfo.date.namedDisplayDate} - ${switch (matchInfo.playerTeamSide) {
+                              MatchSide.home => 'Played home',
+                              MatchSide.away => 'Played away',
+                              MatchSide.neutral => 'Played in neutral ground',
+                            }}',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 13,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Tooltip(
+                    message: 'Download clip',
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(30),
+                      onTap: () async {
+                        try {
+                          await EasyLoading.show(status: 'Downloading...');
+                          final fileName =
+                              'video_clip_${const Uuid().v4().split('-').first}.mp4';
+                          final String? outputFile =
+                              await FilePicker.platform.saveFile(
+                            dialogTitle: 'Please select an output file:',
+                            fileName: fileName,
+                          );
 
-                      await dio.download(
-                        videoUrl,
-                        outputFile,
-                        onReceiveProgress: (received, total) {
-                          final progress = received / total;
-                          EasyLoading.showProgress(progress);
-                        },
-                      );
-                      await Future.delayed(
-                        const Duration(milliseconds: 700),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          duration: const Duration(milliseconds: 800),
-                          backgroundColor: Colors.green[400],
-                          content: Text(
-                            'Clip downloaded',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onPrimary,
+                          await dio.download(
+                            videoUrl,
+                            outputFile,
+                            onReceiveProgress: (received, total) {
+                              final progress = received / total;
+                              EasyLoading.showProgress(progress);
+                            },
+                          );
+                          await Future.delayed(
+                            const Duration(milliseconds: 700),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: const Duration(milliseconds: 800),
+                              backgroundColor: Colors.green[400],
+                              content: Text(
+                                'Clip downloaded',
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                      await EasyLoading.dismiss();
-                    } catch (e, s) {
-                      debugPrint('Error: $e\n$s');
-                      await EasyLoading.dismiss();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Theme.of(context).colorScheme.error,
-                          content: Text(
-                            'Error downloading clip',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onError,
+                          );
+                          await EasyLoading.dismiss();
+                        } catch (e, s) {
+                          debugPrint('Error: $e\n$s');
+                          await EasyLoading.dismiss();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.error,
+                              content: Text(
+                                'Error downloading clip',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onError,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                  child: Icon(
-                    Icons.download,
-                    size: 28,
-                    color: Colors.grey[400],
+                          );
+                        }
+                      },
+                      child: Icon(
+                        Icons.download,
+                        size: 28,
+                        color: Colors.grey[400],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(width: 20),
-              Tooltip(
-                message: 'Open in browser',
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(30),
-                  onTap: () {
-                    launchUrl(Uri.parse(videoUrl));
-                  },
-                  child: Icon(
-                    Icons.open_in_new,
-                    size: 28,
-                    color: Colors.grey[400],
+                  const SizedBox(width: 20),
+                  Tooltip(
+                    message: 'Open in browser',
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(30),
+                      onTap: () {
+                        launchUrl(Uri.parse(videoUrl));
+                      },
+                      child: Icon(
+                        Icons.open_in_new,
+                        size: 28,
+                        color: Colors.grey[400],
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 20),
+                ],
               ),
-              const SizedBox(width: 20),
-            ],
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }

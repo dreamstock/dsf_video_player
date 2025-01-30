@@ -18,7 +18,6 @@ class VideoGroupButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: AnimatedContainer(
-          margin: const EdgeInsets.symmetric(horizontal: 4),
           duration: const Duration(milliseconds: 400),
           decoration: BoxDecoration(
             color: isSelected

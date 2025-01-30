@@ -69,29 +69,30 @@ class CustomDSFPositionIndicatorState
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: controller(context).player.stream.position,
-        builder: (context, snapshot) {
-          final p = snapshot.data;
-          if (p == null) {
-            return Container();
-          }
+      stream: controller(context).player.stream.position,
+      builder: (context, snapshot) {
+        final p = snapshot.data;
+        if (p == null) {
+          return Container();
+        }
 
-          final pos = p - (widget.start ?? const Duration());
+        final pos = p - (widget.start ?? const Duration());
 
-          final totalDur = (widget.end != null && widget.start != null
-              ? (widget.end! - widget.start!)
-              : duration);
+        final totalDur = (widget.end != null && widget.start != null
+            ? (widget.end! - widget.start!)
+            : duration);
 
-          return Text(
-            '${pos.label(reference: totalDur)} / ${totalDur.label(reference: totalDur)}',
-            style: widget.style ??
-                TextStyle(
-                  height: 1.0,
-                  fontSize: 12.0,
-                  color: _theme(context).buttonBarButtonColor,
-                ),
-          );
-        });
+        return Text(
+          '${pos.label(reference: totalDur)} / ${totalDur.label(reference: totalDur)}',
+          style: widget.style ??
+              TextStyle(
+                height: 1.0,
+                fontSize: 12.0,
+                color: _theme(context).buttonBarButtonColor,
+              ),
+        );
+      },
+    );
   }
 }
 
