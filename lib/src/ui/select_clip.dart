@@ -35,63 +35,64 @@ class _SelectClipState extends State<SelectClip> {
     final dio = Dio();
 
     return ValueListenableBuilder(
-        valueListenable: widget.manager.currentCluster,
-        builder: (context, data, _) {
-          final selectedPayloadEntry = data.selectedGroupName;
+      valueListenable: widget.manager.currentCluster,
+      builder: (context, data, _) {
+        final selectedPayloadEntry = data.selectedGroupName;
 
-          return ListView(
-            controller: _scrollController,
-            children: [
-              if (data.payload.keys.length > 1) ...[
-                Text(
-                  'Other Video Groups:',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 6),
-                ...data.payload.keys.splitIntoGroups(2).map(
-                      (group) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: Row(
-                          children: group
-                              .map((GroupName name) {
-                                final isSelected = name == selectedPayloadEntry;
-                                return VideoGroupButton(
-                                  groupName: name,
-                                  isSelected: isSelected,
-                                  onTap: () {
-                                    widget.manager.jumpToGroupWithName(name);
-                                  },
-                                );
-                              })
-                              .toList()
-                              .addBetween(
-                                const SizedBox(width: 12),
-                              ),
-                        ),
-                      ),
-                    ),
-              ],
+        return ListView(
+          controller: _scrollController,
+          children: [
+            if (data.payload.keys.length > 1) ...[
               Text(
-                'Videos:',
+                'Other Video Groups:',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 6),
-              ...data.payload[selectedPayloadEntry]!.map(
-                (VideosEntryPayload videoPayload) {
-                  return VideoDisplayTile(
-                    dio: dio,
-                    yt: yt,
-                    data: videoPayload,
-                    isSelected: videoPayload.clipUuid == data.selectedClipUuid,
-                    onTap: () {
-                      widget.manager.jumpToClipWithId(videoPayload.clipUuid);
-                    },
-                  );
-                },
-              ),
+              ...data.payload.keys.splitIntoGroups(2).map(
+                    (group) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Row(
+                        children: group
+                            .map((GroupName name) {
+                              final isSelected = name == selectedPayloadEntry;
+                              return VideoGroupButton(
+                                groupName: name,
+                                isSelected: isSelected,
+                                onTap: () {
+                                  widget.manager.jumpToGroupWithName(name);
+                                },
+                              );
+                            })
+                            .toList()
+                            .addBetween(
+                              const SizedBox(width: 12),
+                            ),
+                      ),
+                    ),
+                  ),
             ],
-          );
-        });
+            Text(
+              'Videos:',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 6),
+            ...data.payload[selectedPayloadEntry]!.map(
+              (VideosEntryPayload videoPayload) {
+                return VideoDisplayTile(
+                  dio: dio,
+                  yt: yt,
+                  data: videoPayload,
+                  isSelected: videoPayload.clipUuid == data.selectedClipUuid,
+                  onTap: () {
+                    widget.manager.jumpToClipWithId(videoPayload.clipUuid);
+                  },
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

@@ -59,28 +59,30 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
           return _VideoPageWidget(manager: manager);
         }
 
-        return ImageFiltered(
-          enabled: true,
-          imageFilter: ImageFilter.blur(
-            sigmaX: 8,
-            sigmaY: 8,
-            tileMode: TileMode.decal,
-          ),
-          child: IgnorePointer(
-            ignoring: true,
-            child: Stack(
-              children: [
-                SizedBox.expand(
+        return Stack(
+          children: [
+            SizedBox.expand(
+              child: ImageFiltered(
+                enabled: true,
+                imageFilter: ImageFilter.blur(
+                  sigmaX: 8,
+                  sigmaY: 8,
+                  tileMode: TileMode.decal,
+                ),
+                child: IgnorePointer(
+                  ignoring: true,
                   child: _VideoPageWidget(manager: manager),
                 ),
-                if (widget.dontHaveDataWidget != null) ...[
-                  SizedBox.expand(
-                    child: widget.dontHaveDataWidget!,
-                  ),
-                ],
-              ],
+              ),
             ),
-          ),
+            if (widget.dontHaveDataWidget != null) ...[
+              SizedBox.expand(
+                child: Center(
+                  child: widget.dontHaveDataWidget!,
+                ),
+              ),
+            ],
+          ],
         );
       },
     );
@@ -133,11 +135,12 @@ class _VideoPageWidgetState extends State<_VideoPageWidget> {
         ],
       );
     }
+
     return Row(
       children: [
         const SizedBox(width: 16),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 500),
+          constraints: const BoxConstraints(maxWidth: 450),
           child: SelectClip(manager: widget.manager),
         ),
         const SizedBox(width: 16),
