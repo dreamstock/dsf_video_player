@@ -15,14 +15,16 @@ class VideoDisplayTile extends StatelessWidget {
   final YoutubeExplode yt;
   final Dio dio;
   final VideosEntryPayload data;
-  final void Function() onTap;
+  final void Function()? onTap;
+  final bool haveButtons;
   const VideoDisplayTile({
     super.key,
     required this.isSelected,
     required this.data,
     required this.yt,
     required this.dio,
-    required this.onTap,
+    this.onTap,
+    this.haveButtons = true,
   });
 
   @override
@@ -176,85 +178,94 @@ class VideoDisplayTile extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Tooltip(
-                    message: 'Download clip',
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () async {
-                        try {
-                          await EasyLoading.show(status: 'Downloading...');
-                          final fileName =
-                              'video_clip_${const Uuid().v4().split('-').first}.mp4';
-                          final String? outputFile =
-                              await FilePicker.platform.saveFile(
-                            dialogTitle: 'Please select an output file:',
-                            fileName: fileName,
-                          );
+                  if (haveButtons) ...[
+                    Tooltip(
+                      message: 'Download clip',
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(30),
+                        onTap: () async {
+                          try {
+                            await EasyLoading.show(status: 'Downloading...');
+                            final fileName =
+                                'video_clip_${const Uuid().v4().split('-').first}.mp4';
+                            final String? outputFile =
+                                await FilePicker.platform.saveFile(
+                              dialogTitle: 'Please select an output file:',
+                              fileName: fileName,
+                            );
 
-                          await dio.download(
-                            videoUrl,
-                            outputFile,
-                            onReceiveProgress: (received, total) {
-                              final progress = received / total;
-                              EasyLoading.showProgress(progress);
-                            },
-                          );
-                          await Future.delayed(
-                            const Duration(milliseconds: 700),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              duration: const Duration(milliseconds: 800),
-                              backgroundColor: Colors.green[400],
-                              content: Text(
-                                'Clip downloaded',
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
+                            await dio.download(
+                              videoUrl,
+                              outputFile,
+                              onReceiveProgress: (received, total) {
+                                final progress = received / total;
+                                EasyLoading.showProgress(progress);
+                              },
+                            );
+                            await Future.delayed(
+                              const Duration(milliseconds: 700),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: const Duration(milliseconds: 800),
+                                backgroundColor: Colors.green[400],
+                                content: Text(
+                                  'Clip downloaded',
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                          await EasyLoading.dismiss();
-                        } catch (e, s) {
-                          debugPrint('Error: $e\n$s');
-                          await EasyLoading.dismiss();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.error,
-                              content: Text(
-                                'Error downloading clip',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.onError,
+                            );
+                            await EasyLoading.dismiss();
+                          } catch (e, s) {
+                            debugPrint('Error: $e\n$s');
+                            await EasyLoading.dismiss();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.error,
+                                content: Text(
+                                  'Error downloading clip',
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onError,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }
-                      },
-                      child: Icon(
-                        Icons.download,
-                        size: 28,
-                        color: Colors.grey[400],
+                            );
+                          }
+                        },
+                        child: Icon(
+                          Icons.download,
+                          size: 28,
+                          color: Colors.grey[400],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  Tooltip(
-                    message: 'Open in browser',
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () {
-                        launchUrl(Uri.parse(videoUrl));
-                      },
-                      child: Icon(
-                        Icons.open_in_new,
-                        size: 28,
-                        color: Colors.grey[400],
+                    const SizedBox(width: 20),
+                    Tooltip(
+                      message: 'Open in browser',
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(30),
+                        onTap: () {
+                          launchUrl(Uri.parse(videoUrl));
+                        },
+                        child: Icon(
+                          Icons.open_in_new,
+                          size: 28,
+                          color: Colors.grey[400],
+                        ),
                       ),
                     ),
-                  ),
+                  ] else ...[
+                    Icon(
+                      Icons.open_in_new,
+                      size: 28,
+                      color: Colors.grey[400],
+                    ),
+                  ],
                   const SizedBox(width: 20),
                 ],
               ),
