@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dsf_video_player/src/core/mock_for_empty.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
@@ -37,10 +38,13 @@ class FrameManager {
     manager.totalLenght = manager._idToIndexInPlaylist.length;
 
     final playable = Playlist(medias);
-
-    await manager.player.open(playable);
-
-    manager.setListeners();
+    final isMock = initialData.selectedClipUuid == mock.selectedClipUuid;
+    await manager.player.open(playable, play: isMock == false);
+    if (isMock == true) {
+      await manager.player.pause();
+    } else {
+      manager.setListeners();
+    }
 
     return manager;
   }
@@ -134,7 +138,3 @@ class FrameManager {
 
 typedef ClipUuid = String;
 typedef IndexInPlaylist = int;
-
-// class MappingStructure {
-//   final List<Media> _playlist;
-// }
