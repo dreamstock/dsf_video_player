@@ -38,16 +38,18 @@ dependencies:
   enchanted_collection: ^1.3.0
   freezed_annotation: ^2.4.4
   json_annotation: ^4.9.0
-  video_player_media_kit: any
-  media_kit: any
-  media_kit_video: any
+
   # media_kit_libs_video: any
   # media_kit_libs_audio: any
-  media_kit_libs_android_video: any
-  media_kit_libs_ios_video: any
-  media_kit_libs_macos_video: any
-  media_kit_libs_windows_video: any
-  media_kit_libs_linux: any
+  media_kit: ^1.1.11
+  media_kit_video: ^1.2.5
+  media_kit_libs_android_video: ^1.3.6
+  media_kit_libs_ios_video: ^1.1.4
+  media_kit_libs_macos_video: ^1.1.4
+  media_kit_libs_windows_video: ^1.0.10
+  media_kit_libs_linux: ^1.1.3
+  video_player_media_kit: ^1.0.5
+
   video_generator:
     git: 
       url: git@github.com:dreamstock/highlights_generator.git
