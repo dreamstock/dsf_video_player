@@ -4,6 +4,7 @@ import 'package:player_source_models/models/spreedsheet/clips/spotlight.dart';
 import 'package:video_generator/video_generator.dart';
 
 part 'videos_entry_payload.freezed.dart';
+part 'videos_entry_payload.g.dart';
 
 typedef GroupName = String;
 
@@ -15,6 +16,9 @@ abstract class PlaylistCluster with _$PlaylistCluster {
     required String selectedClipUuid,
     required Map<GroupName, List<VideosEntryPayload>> payload,
   }) = _PlaylistCluster;
+
+  factory PlaylistCluster.fromJson(Map<String, dynamic> json) =>
+      _$PlaylistClusterFromJson(json);
 
   GroupName get selectedGroupName {
     for (final group in payload.entries) {
@@ -120,4 +124,7 @@ abstract class VideosEntryPayload with _$VideosEntryPayload {
     required String clipUuid,
     required Spotlight? spotlight,
   }) = _VideosEntryPayload;
+
+  factory VideosEntryPayload.fromJson(Map<String, dynamic> json) =>
+      _$VideosEntryPayloadFromJson(json);
 }

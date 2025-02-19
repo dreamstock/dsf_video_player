@@ -14,11 +14,18 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+PlaylistCluster _$PlaylistClusterFromJson(Map<String, dynamic> json) {
+  return _PlaylistCluster.fromJson(json);
+}
+
 /// @nodoc
 mixin _$PlaylistCluster {
   String get selectedClipUuid => throw _privateConstructorUsedError;
   Map<String, List<VideosEntryPayload>> get payload =>
       throw _privateConstructorUsedError;
+
+  /// Serializes this PlaylistCluster to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of PlaylistCluster
   /// with the given fields replaced by the non-null parameter values.
@@ -110,13 +117,16 @@ class __$$PlaylistClusterImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$PlaylistClusterImpl extends _PlaylistCluster {
   _$PlaylistClusterImpl(
       {required this.selectedClipUuid,
       required final Map<String, List<VideosEntryPayload>> payload})
       : _payload = payload,
         super._();
+
+  factory _$PlaylistClusterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaylistClusterImplFromJson(json);
 
   @override
   final String selectedClipUuid;
@@ -143,6 +153,7 @@ class _$PlaylistClusterImpl extends _PlaylistCluster {
             const DeepCollectionEquality().equals(other._payload, _payload));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, selectedClipUuid,
       const DeepCollectionEquality().hash(_payload));
@@ -155,6 +166,13 @@ class _$PlaylistClusterImpl extends _PlaylistCluster {
   _$$PlaylistClusterImplCopyWith<_$PlaylistClusterImpl> get copyWith =>
       __$$PlaylistClusterImplCopyWithImpl<_$PlaylistClusterImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PlaylistClusterImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _PlaylistCluster extends PlaylistCluster {
@@ -163,6 +181,9 @@ abstract class _PlaylistCluster extends PlaylistCluster {
           required final Map<String, List<VideosEntryPayload>> payload}) =
       _$PlaylistClusterImpl;
   _PlaylistCluster._() : super._();
+
+  factory _PlaylistCluster.fromJson(Map<String, dynamic> json) =
+      _$PlaylistClusterImpl.fromJson;
 
   @override
   String get selectedClipUuid;
@@ -177,6 +198,10 @@ abstract class _PlaylistCluster extends PlaylistCluster {
       throw _privateConstructorUsedError;
 }
 
+VideosEntryPayload _$VideosEntryPayloadFromJson(Map<String, dynamic> json) {
+  return _VideosEntryPayload.fromJson(json);
+}
+
 /// @nodoc
 mixin _$VideosEntryPayload {
   String get title => throw _privateConstructorUsedError;
@@ -187,6 +212,9 @@ mixin _$VideosEntryPayload {
   ClipOffset? get offset => throw _privateConstructorUsedError;
   String get clipUuid => throw _privateConstructorUsedError;
   Spotlight? get spotlight => throw _privateConstructorUsedError;
+
+  /// Serializes this VideosEntryPayload to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of VideosEntryPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -405,7 +433,7 @@ class __$$VideosEntryPayloadImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
   _$VideosEntryPayloadImpl(
       {required this.title,
@@ -416,6 +444,9 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
       required this.offset,
       required this.clipUuid,
       required this.spotlight});
+
+  factory _$VideosEntryPayloadImpl.fromJson(Map<String, dynamic> json) =>
+      _$$VideosEntryPayloadImplFromJson(json);
 
   @override
   final String title;
@@ -460,6 +491,7 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
                 other.spotlight == spotlight));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, title, description, matchInfos,
       videoUrl, tumbnail, offset, clipUuid, spotlight);
@@ -472,6 +504,13 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
   _$$VideosEntryPayloadImplCopyWith<_$VideosEntryPayloadImpl> get copyWith =>
       __$$VideosEntryPayloadImplCopyWithImpl<_$VideosEntryPayloadImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$VideosEntryPayloadImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _VideosEntryPayload implements VideosEntryPayload {
@@ -484,6 +523,9 @@ abstract class _VideosEntryPayload implements VideosEntryPayload {
       required final ClipOffset? offset,
       required final String clipUuid,
       required final Spotlight? spotlight}) = _$VideosEntryPayloadImpl;
+
+  factory _VideosEntryPayload.fromJson(Map<String, dynamic> json) =
+      _$VideosEntryPayloadImpl.fromJson;
 
   @override
   String get title;
