@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
-import 'package:video_generator/video_generator.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class VideoDisplayTile extends StatelessWidget {
@@ -162,11 +161,7 @@ class VideoDisplayTile extends StatelessWidget {
                           ),
                         if (matchInfo != null) ...[
                           Text(
-                            '${matchInfo.date.namedDisplayDate} - ${switch (matchInfo.playerTeamSide) {
-                              MatchSide.home => 'Played home',
-                              MatchSide.away => 'Played away',
-                              MatchSide.neutral => 'Played in neutral ground',
-                            }}',
+                            matchInfo.date.namedDisplayDate,
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 13,

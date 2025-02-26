@@ -20,6 +20,7 @@ dependency_overrides:
       path: player_source_models  
   super_native_extensions: 0.8.24
   path_provider: ^2.1.5
+  uuid: ^4.4.2
   collection: ^1.19.0
   intl: ^0.20.0
 
