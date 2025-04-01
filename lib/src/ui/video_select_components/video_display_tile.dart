@@ -5,6 +5,7 @@ import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:player_source_models/models/player_label.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
@@ -127,14 +128,14 @@ class VideoDisplayTile extends StatelessWidget {
                               maxLines: 2,
                             ),
                             if (data.isWeakness == true)
-                              const Chip(
-                                label: Text(
-                                  "WEAKNESS",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: LabelWidget(
+                                  title: "WEAKNESS",
+                                  message: "This is a weak video",
+                                  color: Colors.white,
+                                  backgroundColor: Colors.cyan,
                                 ),
-                                backgroundColor: Colors.cyanAccent,
                               ),
                           ],
                         ),
