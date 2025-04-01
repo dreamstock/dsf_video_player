@@ -107,19 +107,36 @@ class VideoDisplayTile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          isYoutube
-                              ? (isLoading
-                                  ? 'Loading...'
-                                  : (youtubeData?.title ?? title))
-                              : title,
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.grey[300],
-                            fontSize: 15,
-                            fontWeight:
-                                isSelected ? FontWeight.bold : FontWeight.w300,
-                          ),
-                          maxLines: 2,
+                        Row(
+                          children: [
+                            Text(
+                              isYoutube
+                                  ? (isLoading
+                                      ? 'Loading...'
+                                      : (youtubeData?.title ?? title))
+                                  : title,
+                              style: TextStyle(
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.grey[300],
+                                fontSize: 15,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.w300,
+                              ),
+                              maxLines: 2,
+                            ),
+                            if (data.isWeakness == true)
+                              const Chip(
+                                label: Text(
+                                  "WEAKNESS",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                backgroundColor: Colors.cyanAccent,
+                              ),
+                          ],
                         ),
                         if (youtubeData != null)
                           Text(

@@ -212,6 +212,7 @@ mixin _$VideosEntryPayload {
   ClipOffset? get offset => throw _privateConstructorUsedError;
   String get clipUuid => throw _privateConstructorUsedError;
   Spotlight? get spotlight => throw _privateConstructorUsedError;
+  bool? get isWeakness => throw _privateConstructorUsedError;
 
   /// Serializes this VideosEntryPayload to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -237,7 +238,8 @@ abstract class $VideosEntryPayloadCopyWith<$Res> {
       String? tumbnail,
       ClipOffset? offset,
       String clipUuid,
-      Spotlight? spotlight});
+      Spotlight? spotlight,
+      bool? isWeakness});
 
   $MatchInfosCopyWith<$Res>? get matchInfos;
   $ClipOffsetCopyWith<$Res>? get offset;
@@ -267,6 +269,7 @@ class _$VideosEntryPayloadCopyWithImpl<$Res, $Val extends VideosEntryPayload>
     Object? offset = freezed,
     Object? clipUuid = null,
     Object? spotlight = freezed,
+    Object? isWeakness = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -301,6 +304,10 @@ class _$VideosEntryPayloadCopyWithImpl<$Res, $Val extends VideosEntryPayload>
           ? _value.spotlight
           : spotlight // ignore: cast_nullable_to_non_nullable
               as Spotlight?,
+      isWeakness: freezed == isWeakness
+          ? _value.isWeakness
+          : isWeakness // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -363,7 +370,8 @@ abstract class _$$VideosEntryPayloadImplCopyWith<$Res>
       String? tumbnail,
       ClipOffset? offset,
       String clipUuid,
-      Spotlight? spotlight});
+      Spotlight? spotlight,
+      bool? isWeakness});
 
   @override
   $MatchInfosCopyWith<$Res>? get matchInfos;
@@ -394,6 +402,7 @@ class __$$VideosEntryPayloadImplCopyWithImpl<$Res>
     Object? offset = freezed,
     Object? clipUuid = null,
     Object? spotlight = freezed,
+    Object? isWeakness = freezed,
   }) {
     return _then(_$VideosEntryPayloadImpl(
       title: null == title
@@ -428,6 +437,10 @@ class __$$VideosEntryPayloadImplCopyWithImpl<$Res>
           ? _value.spotlight
           : spotlight // ignore: cast_nullable_to_non_nullable
               as Spotlight?,
+      isWeakness: freezed == isWeakness
+          ? _value.isWeakness
+          : isWeakness // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -443,7 +456,8 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
       required this.tumbnail,
       required this.offset,
       required this.clipUuid,
-      required this.spotlight});
+      required this.spotlight,
+      required this.isWeakness});
 
   factory _$VideosEntryPayloadImpl.fromJson(Map<String, dynamic> json) =>
       _$$VideosEntryPayloadImplFromJson(json);
@@ -464,10 +478,12 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
   final String clipUuid;
   @override
   final Spotlight? spotlight;
+  @override
+  final bool? isWeakness;
 
   @override
   String toString() {
-    return 'VideosEntryPayload(title: $title, description: $description, matchInfos: $matchInfos, videoUrl: $videoUrl, tumbnail: $tumbnail, offset: $offset, clipUuid: $clipUuid, spotlight: $spotlight)';
+    return 'VideosEntryPayload(title: $title, description: $description, matchInfos: $matchInfos, videoUrl: $videoUrl, tumbnail: $tumbnail, offset: $offset, clipUuid: $clipUuid, spotlight: $spotlight, isWeakness: $isWeakness)';
   }
 
   @override
@@ -488,13 +504,15 @@ class _$VideosEntryPayloadImpl implements _VideosEntryPayload {
             (identical(other.clipUuid, clipUuid) ||
                 other.clipUuid == clipUuid) &&
             (identical(other.spotlight, spotlight) ||
-                other.spotlight == spotlight));
+                other.spotlight == spotlight) &&
+            (identical(other.isWeakness, isWeakness) ||
+                other.isWeakness == isWeakness));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, title, description, matchInfos,
-      videoUrl, tumbnail, offset, clipUuid, spotlight);
+      videoUrl, tumbnail, offset, clipUuid, spotlight, isWeakness);
 
   /// Create a copy of VideosEntryPayload
   /// with the given fields replaced by the non-null parameter values.
@@ -522,7 +540,8 @@ abstract class _VideosEntryPayload implements VideosEntryPayload {
       required final String? tumbnail,
       required final ClipOffset? offset,
       required final String clipUuid,
-      required final Spotlight? spotlight}) = _$VideosEntryPayloadImpl;
+      required final Spotlight? spotlight,
+      required final bool? isWeakness}) = _$VideosEntryPayloadImpl;
 
   factory _VideosEntryPayload.fromJson(Map<String, dynamic> json) =
       _$VideosEntryPayloadImpl.fromJson;
@@ -543,6 +562,8 @@ abstract class _VideosEntryPayload implements VideosEntryPayload {
   String get clipUuid;
   @override
   Spotlight? get spotlight;
+  @override
+  bool? get isWeakness;
 
   /// Create a copy of VideosEntryPayload
   /// with the given fields replaced by the non-null parameter values.

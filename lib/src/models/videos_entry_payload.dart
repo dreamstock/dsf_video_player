@@ -123,6 +123,7 @@ abstract class VideosEntryPayload with _$VideosEntryPayload {
     required ClipOffset? offset,
     required String clipUuid,
     required Spotlight? spotlight,
+    required bool? isWeakness,
   }) = _VideosEntryPayload;
 
   factory VideosEntryPayload.fromJson(Map<String, dynamic> json) =>
