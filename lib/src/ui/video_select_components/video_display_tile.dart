@@ -129,15 +129,12 @@ class VideoDisplayTile extends StatelessWidget {
                             ),
                             if (data.isWeakness == true)
                               const Padding(
-                                padding: EdgeInsets.only(left: 4.0),
-                                child: SizedBox(
-                                  width: 40,
-                                  child: LabelWidget(
-                                    title: "WEAK",
-                                    message: "This is a weak video",
-                                    color: Colors.white,
-                                    backgroundColor: Colors.cyan,
-                                  ),
+                                padding: EdgeInsets.all(4.0),
+                                child: LabelWidget(
+                                  title: "WEAK",
+                                  message: "This is a weak video",
+                                  color: Colors.white,
+                                  backgroundColor: Colors.cyan,
                                 ),
                               ),
                           ],
