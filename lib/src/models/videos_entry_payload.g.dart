@@ -44,6 +44,7 @@ _$VideosEntryPayloadImpl _$$VideosEntryPayloadImplFromJson(
       spotlight: json['spotlight'] == null
           ? null
           : Spotlight.fromJson(json['spotlight'] as Map<String, dynamic>),
+      isWeakness: json['isWeakness'] as bool?,
     );
 
 Map<String, dynamic> _$$VideosEntryPayloadImplToJson(
@@ -57,4 +58,5 @@ Map<String, dynamic> _$$VideosEntryPayloadImplToJson(
       'offset': instance.offset,
       'clipUuid': instance.clipUuid,
       'spotlight': instance.spotlight,
+      'isWeakness': instance.isWeakness,
     };

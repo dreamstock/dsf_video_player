@@ -15,6 +15,7 @@ final mock = PlaylistCluster(
         offset: null,
         spotlight: null,
         matchInfos: null,
+        isWeakness: null,
       ),
       VideosEntryPayload(
         clipUuid: '456',
@@ -26,6 +27,7 @@ final mock = PlaylistCluster(
         offset: null,
         spotlight: null,
         matchInfos: null,
+        isWeakness: null,
       ),
       VideosEntryPayload(
         clipUuid: '789',
@@ -37,6 +39,7 @@ final mock = PlaylistCluster(
         offset: null,
         spotlight: null,
         matchInfos: null,
+        isWeakness: null,
       ),
     ],
     'Assists': [],

@@ -50,7 +50,7 @@ class _SelectClipState extends State<SelectClip> {
             ...?widget.topBarChildren,
             if (data.payload.keys.length > 1) ...[
               Text(
-                'Other Video Groups:',
+                'Video Groups:',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 6),

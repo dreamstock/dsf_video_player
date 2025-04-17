@@ -5,6 +5,7 @@ import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:player_source_models/models/player_label.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
@@ -107,19 +108,37 @@ class VideoDisplayTile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          isYoutube
-                              ? (isLoading
-                                  ? 'Loading...'
-                                  : (youtubeData?.title ?? title))
-                              : title,
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.grey[300],
-                            fontSize: 15,
-                            fontWeight:
-                                isSelected ? FontWeight.bold : FontWeight.w300,
-                          ),
-                          maxLines: 2,
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text(
+                              isYoutube
+                                  ? (isLoading
+                                      ? 'Loading...'
+                                      : (youtubeData?.title ?? title))
+                                  : title,
+                              style: TextStyle(
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.grey[300],
+                                fontSize: 15,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.w300,
+                              ),
+                              maxLines: 2,
+                            ),
+                            if (data.isWeakness == true)
+                              const Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: LabelWidget(
+                                  title: "WEAK",
+                                  message: "This is a weak video",
+                                  color: Colors.white,
+                                  backgroundColor: Colors.cyan,
+                                ),
+                              ),
+                          ],
                         ),
                         if (youtubeData != null)
                           Text(
