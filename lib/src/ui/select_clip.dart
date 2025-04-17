@@ -9,7 +9,12 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class SelectClip extends StatefulWidget {
   final FrameManager manager;
-  const SelectClip({super.key, required this.manager});
+  final List<Widget>? topBarChildren;
+  const SelectClip({
+    super.key,
+    required this.manager,
+    required this.topBarChildren,
+  });
 
   @override
   State<SelectClip> createState() => _SelectClipState();
@@ -42,6 +47,7 @@ class _SelectClipState extends State<SelectClip> {
         return ListView(
           controller: _scrollController,
           children: [
+            ...?widget.topBarChildren,
             if (data.payload.keys.length > 1) ...[
               Text(
                 'Other Video Groups:',

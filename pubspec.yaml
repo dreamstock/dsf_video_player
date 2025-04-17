@@ -3,7 +3,7 @@ description: "A new Flutter package project."
 version: 0.0.1
 publish_to: 'none'
 
-ref: &coreversion d79b806fcda41012ad2e5ed592cdaee6b12127d6
+ref: &coreversion 9c00e493b2f4bdd5033cabc56765fec59c8a2463
 
 environment:
   sdk: ^3.5.3
@@ -12,12 +12,23 @@ dependency_overrides:
   video_generator:
     git: 
       url: git@github.com:dreamstock/highlights_generator.git
-      ref: 72aeefde05a734cc46dd5e2645d3ab561fae460e 
+      ref: 72aeefde05a734cc46dd5e2645d3ab561fae460e
   player_source_models:
     git:
       url: git@github.com:dreamstock/dsf-player-getter.git
       ref: *coreversion 
       path: player_source_models  
+
+  dsf_commum_data_source:
+    git:
+      url: git@github.com:dreamstock/dsf-player-getter.git
+      ref: *coreversion 
+      path: dsf_commum_data_source 
+  dsf_commum_ref_providers:
+    git:
+      url: git@github.com:dreamstock/dsf-player-getter.git
+      ref: *coreversion 
+      path: dsf_commum_ref_providers
   super_native_extensions: 0.8.24
   path_provider: ^2.1.5
   uuid: ^4.4.2
@@ -59,7 +70,17 @@ dependencies:
     git:
       url: git@github.com:dreamstock/dsf-player-getter.git
       ref: *coreversion 
-      path: player_source_models  
+      path: player_source_models
+  dsf_commum_data_source:
+    git:
+      url: git@github.com:dreamstock/dsf-player-getter.git
+      ref: *coreversion 
+      path: dsf_commum_data_source 
+  dsf_commum_ref_providers:
+    git:
+      url: git@github.com:dreamstock/dsf-player-getter.git
+      ref: *coreversion 
+      path: dsf_commum_ref_providers
 
 dev_dependencies:
   flutter_test:

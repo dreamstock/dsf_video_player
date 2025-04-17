@@ -11,11 +11,13 @@ import 'package:flutter/material.dart';
 class DsfPlaylistPlayer extends StatefulWidget {
   final PlaylistCluster? payload;
   final Widget? dontHaveDataWidget;
+  final List<Widget> topBarChildren;
 
   const DsfPlaylistPlayer({
     super.key,
     required this.payload,
     this.dontHaveDataWidget,
+    this.topBarChildren = const [],
   });
 
   @override
@@ -56,7 +58,10 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
         }
 
         if (!isMock) {
-          return _VideoPageWidget(manager: manager);
+          return _VideoPageWidget(
+            manager: manager,
+            topBarChildren: widget.topBarChildren,
+          );
         }
 
         return Stack(
@@ -71,7 +76,10 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
                 ),
                 child: IgnorePointer(
                   ignoring: true,
-                  child: _VideoPageWidget(manager: manager),
+                  child: _VideoPageWidget(
+                    manager: manager,
+                    topBarChildren: widget.topBarChildren,
+                  ),
                 ),
               ),
             ),
@@ -92,8 +100,9 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
 class _VideoPageWidget extends StatefulWidget {
   const _VideoPageWidget({
     required this.manager,
+    required this.topBarChildren,
   });
-
+  final List<Widget> topBarChildren;
   final FrameManager manager;
 
   @override
@@ -130,7 +139,10 @@ class _VideoPageWidgetState extends State<_VideoPageWidget> {
             ),
           ),
           Expanded(
-            child: SelectClip(manager: widget.manager),
+            child: SelectClip(
+              manager: widget.manager,
+              topBarChildren: widget.topBarChildren,
+            ),
           ),
         ],
       );
@@ -141,7 +153,10 @@ class _VideoPageWidgetState extends State<_VideoPageWidget> {
         const SizedBox(width: 16),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 450),
-          child: SelectClip(manager: widget.manager),
+          child: SelectClip(
+            manager: widget.manager,
+            topBarChildren: widget.topBarChildren,
+          ),
         ),
         const SizedBox(width: 16),
         Expanded(

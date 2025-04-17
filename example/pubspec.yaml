@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
-ref: &coreversion d79b806fcda41012ad2e5ed592cdaee6b12127d6
+ref: &coreversion 9c00e493b2f4bdd5033cabc56765fec59c8a2463
 
 environment:
   sdk: ^3.5.3
@@ -40,6 +40,16 @@ dependency_overrides:
       url: git@github.com:dreamstock/dsf-player-getter.git
       ref: *coreversion 
       path: player_source_models  
+  dsf_commum_data_source:
+    git:
+      url: git@github.com:dreamstock/dsf-player-getter.git
+      ref: *coreversion 
+      path: dsf_commum_data_source 
+  dsf_commum_ref_providers:
+    git:
+      url: git@github.com:dreamstock/dsf-player-getter.git
+      ref: *coreversion 
+      path: dsf_commum_ref_providers
   super_native_extensions: 0.8.24
   path_provider: ^2.1.5
   collection: ^1.19.0
@@ -96,6 +106,17 @@ dependencies:
       url: git@github.com:dreamstock/dsf-player-getter.git
       ref: *coreversion 
       path: player_source_models  
+
+  dsf_commum_data_source:
+    git:
+      url: git@github.com:dreamstock/dsf-player-getter.git
+      ref: *coreversion 
+      path: dsf_commum_data_source 
+  dsf_commum_ref_providers:
+    git:
+      url: git@github.com:dreamstock/dsf-player-getter.git
+      ref: *coreversion 
+      path: dsf_commum_ref_providers
   dsf_video_player:
     path: ../
 
