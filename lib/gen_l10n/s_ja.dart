@@ -9,10 +9,10 @@ class SJa extends S {
   SJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get video_groups => '動画グループ：';
+  String get video_groups => '動画グループ';
 
   @override
-  String get videos => '動画：';
+  String get videos => '動画';
 
   @override
   String get weak => '未成功';
