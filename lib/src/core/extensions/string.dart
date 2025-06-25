@@ -2,7 +2,7 @@ extension StringExt on String {
   String toTranslateVideoTitle() {
     switch (this) {
       case 'Aerial Duel':
-        return 'エアリアルデュエル';
+        return '空中戦';
       case 'Hand Pass':
         return 'ハンドパス';
       case 'Long Pass':
@@ -110,9 +110,9 @@ extension StringExt on String {
       case 'Smart Pass to Penalty Area':
         return 'スマートパス（PA）';
       case 'Defensive Aerial Duel':
-        return '守備時エアリアルデュエル';
+        return '守備の空中戦';
       case 'Offensive Aerial Duel':
-        return '攻撃時エアリアルデュエル';
+        return '攻撃の空中戦';
       case 'Key Short/Medium Pass':
         return 'キーミドルパス';
       case 'Smart Long Pass to Final Third':
@@ -182,7 +182,7 @@ extension StringExt on String {
       case 'Pass to Penalty Area (Shot Assist)':
         return 'PAへのパス（アシスト）';
       case 'Lost Aerial Duel':
-        return 'エアリアルデュエル敗北';
+        return '空中戦の敗北';
       case 'Penalty Conceded Goal':
         return 'PK失点';
       case 'Conceded Goal':
@@ -260,9 +260,9 @@ extension StringExt on String {
       case 'Own Half Unsuccessful Offensive Duel':
         return '自陣攻撃デュエル失敗';
       case 'Lost Offensive Aerial Duel':
-        return '攻撃エアリアルデュエル敗北';
+        return '攻撃の空中戦敗北';
       case 'Lost Defensive Aerial Duel':
-        return '守備エアリアルデュエル敗北';
+        return '守備の空中戦敗北';
       case 'Innaccurate Cross to Penalty Area':
         return 'PAへのクロスミス';
       case 'Innaccurate Cross':
