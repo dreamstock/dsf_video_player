@@ -1,0 +1,9 @@
+{
+  "@@locale": "en",
+
+  "video_groups": "Video Groups:",
+  "videos": "Videos:",
+  "weak": "WEAK",
+  "weak_description": "This is a weak video",
+  "loading": "Loading..."
+}

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dsf_video_player/gen_l10n/s.dart';
 import 'package:dsf_video_player/src/logic/frame_manager.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:dsf_video_player/src/ui/video_select_components/video_display_tile.dart';
@@ -50,7 +51,7 @@ class _SelectClipState extends State<SelectClip> {
             ...?widget.topBarChildren,
             if (data.payload.keys.length > 1) ...[
               Text(
-                'Video Groups:',
+                S.of(context)!.video_groups,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 6),
@@ -78,7 +79,7 @@ class _SelectClipState extends State<SelectClip> {
                   ),
             ],
             Text(
-              'Videos:',
+              S.of(context)!.videos,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 6),

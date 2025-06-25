@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:dio/dio.dart';
+import 'package:dsf_video_player/gen_l10n/s.dart';
 import 'package:dsf_video_player/src/models/videos_entry_payload.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -67,43 +68,6 @@ class VideoDisplayTile extends StatelessWidget {
               child: Row(
                 children: [
                   const SizedBox(width: 12),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: SizedBox(
-                      height: 52,
-                      child: AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: Builder(builder: (context) {
-                          final String tumb;
-                          if (youtubeData != null) {
-                            tumb = youtubeData.thumbnails.highResUrl;
-                          } else {
-                            tumb = data.tumbnail ?? '';
-                          }
-
-                          if (tumb.isEmpty) {
-                            if (isLoading) {
-                              return const Center(
-                                child: Icon(Icons.insert_photo_rounded),
-                              );
-                            }
-
-                            return const Center(
-                              child: Text('Loading...'),
-                            );
-                          }
-
-                          return Image.network(
-                            tumb,
-                            fit: BoxFit.cover,
-                            loadingBuilder: _hangleImageLoading,
-                            errorBuilder: _handleImageError,
-                          );
-                        }),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +78,7 @@ class VideoDisplayTile extends StatelessWidget {
                             Text(
                               isYoutube
                                   ? (isLoading
-                                      ? 'Loading...'
+                                      ? S.of(context)!.loading
                                       : (youtubeData?.title ?? title))
                                   : title,
                               style: TextStyle(
@@ -129,11 +93,11 @@ class VideoDisplayTile extends StatelessWidget {
                               maxLines: 2,
                             ),
                             if (data.isWeakness == true)
-                              const Padding(
-                                padding: EdgeInsets.all(4.0),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
                                 child: LabelWidget(
-                                  title: "WEAK",
-                                  message: "This is a weak video",
+                                  title: S.of(context)!.weak,
+                                  message: S.of(context)!.weak_description,
                                   color: Colors.white,
                                   backgroundColor: Colors.cyan,
                                 ),
