@@ -239,13 +239,13 @@ extension StringExt on String {
         return 'ハンドパスミス';
       case 'Innaccurate Short/Medium Pass to Penalty Area':
         return 'ミドルパスミス（PA）';
-      case 'Unsuccessful Defensive Duel (Taken on)':
+      case 'Unsuccessful Defensive Duel (Taken On)':
         return '対人守備失敗（抜かれた）';
       case 'Unsuccessful Defensive Duel':
         return '対人守備失敗';
       case 'Unsuccessful Sliding Tackle':
         return 'スライディング失敗';
-      case 'Unsuccessful Sliding Tackle (Taken on)':
+      case 'Unsuccessful Sliding Tackle (Taken On)':
         return 'スライディング失敗（抜かれた）';
       case 'Missed Opportunity (On Target)':
         return '決定機ミス（枠内）';
