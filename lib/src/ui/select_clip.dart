@@ -83,19 +83,21 @@ class _SelectClipState extends State<SelectClip> {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 6),
-            ...data.payload[selectedPayloadEntry]!.map(
-              (VideosEntryPayload videoPayload) {
-                return VideoDisplayTile(
-                  dio: dio,
-                  yt: yt,
-                  data: videoPayload,
-                  isSelected: videoPayload.clipUuid == data.selectedClipUuid,
-                  onTap: () {
-                    widget.manager.jumpToClipWithId(videoPayload.clipUuid);
+            ...data.payload[selectedPayloadEntry]?.map(
+                  (VideosEntryPayload videoPayload) {
+                    return VideoDisplayTile(
+                      dio: dio,
+                      yt: yt,
+                      data: videoPayload,
+                      isSelected:
+                          videoPayload.clipUuid == data.selectedClipUuid,
+                      onTap: () {
+                        widget.manager.jumpToClipWithId(videoPayload.clipUuid);
+                      },
+                    );
                   },
-                );
-              },
-            ),
+                ) ??
+                [],
           ],
         );
       },
