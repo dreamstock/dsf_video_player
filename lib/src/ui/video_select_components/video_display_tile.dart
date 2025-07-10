@@ -78,7 +78,7 @@ class VideoDisplayTile extends StatelessWidget {
                             Text(
                               isYoutube
                                   ? (isLoading
-                                      ? S.of(context)!.loading
+                                      ? S.of(context)?.loading ?? 'Loading'
                                       : (youtubeData?.title ?? title))
                                   : title,
                               style: TextStyle(
@@ -96,8 +96,8 @@ class VideoDisplayTile extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: LabelWidget(
-                                  title: S.of(context)!.weak,
-                                  message: S.of(context)!.weak_description,
+                                  title: S.of(context)?.weak ?? 'weal',
+                                  message: S.of(context)?.weak_description,
                                   color: Colors.white,
                                   backgroundColor: Colors.cyan,
                                 ),
