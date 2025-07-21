@@ -18,6 +18,7 @@ _$PlaylistClusterImpl _$$PlaylistClusterImplFromJson(
                     VideosEntryPayload.fromJson(e as Map<String, dynamic>))
                 .toList()),
       ),
+      playerUuid: json['playerUuid'] as String?,
     );
 
 Map<String, dynamic> _$$PlaylistClusterImplToJson(
@@ -25,6 +26,7 @@ Map<String, dynamic> _$$PlaylistClusterImplToJson(
     <String, dynamic>{
       'selectedClipUuid': instance.selectedClipUuid,
       'payload': instance.payload,
+      'playerUuid': instance.playerUuid,
     };
 
 _$VideosEntryPayloadImpl _$$VideosEntryPayloadImplFromJson(

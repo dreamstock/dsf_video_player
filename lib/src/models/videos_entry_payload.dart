@@ -15,6 +15,7 @@ abstract class PlaylistCluster with _$PlaylistCluster {
   factory PlaylistCluster({
     required String selectedClipUuid,
     required Map<GroupName, List<VideosEntryPayload>> payload,
+    String? playerUuid,
   }) = _PlaylistCluster;
 
   factory PlaylistCluster.fromJson(Map<String, dynamic> json) =>
@@ -50,6 +51,7 @@ abstract class PlaylistCluster with _$PlaylistCluster {
     return PlaylistCluster(
       selectedClipUuid: selectedClipUuid,
       payload: newPayload,
+      playerUuid: playerUuid ?? other.playerUuid,
     );
   }
 

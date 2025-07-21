@@ -18,6 +18,7 @@ class VideoDisplayTile extends StatelessWidget {
   final VideosEntryPayload data;
   final void Function()? onTap;
   final bool haveButtons;
+  final String? playerUuid;
   const VideoDisplayTile({
     super.key,
     required this.isSelected,
@@ -26,6 +27,7 @@ class VideoDisplayTile extends StatelessWidget {
     required this.dio,
     this.onTap,
     this.haveButtons = true,
+    this.playerUuid,
   });
 
   @override
@@ -228,7 +230,11 @@ class VideoDisplayTile extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(30),
                         onTap: () {
-                          launchUrl(Uri.parse(videoUrl));
+                          if (playerUuid != null) {
+                            launchUrl(Uri.parse('https://player.dsfpro.app/?uuid=$playerUuid'));
+                          } else {
+                            launchUrl(Uri.parse(videoUrl));
+                          }
                         },
                         child: Icon(
                           Icons.open_in_new,

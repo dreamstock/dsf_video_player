@@ -23,6 +23,7 @@ mixin _$PlaylistCluster {
   String get selectedClipUuid => throw _privateConstructorUsedError;
   Map<String, List<VideosEntryPayload>> get payload =>
       throw _privateConstructorUsedError;
+  String? get playerUuid => throw _privateConstructorUsedError;
 
   /// Serializes this PlaylistCluster to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,9 @@ abstract class $PlaylistClusterCopyWith<$Res> {
       _$PlaylistClusterCopyWithImpl<$Res, PlaylistCluster>;
   @useResult
   $Res call(
-      {String selectedClipUuid, Map<String, List<VideosEntryPayload>> payload});
+      {String selectedClipUuid,
+      Map<String, List<VideosEntryPayload>> payload,
+      String? playerUuid});
 }
 
 /// @nodoc
@@ -61,6 +64,7 @@ class _$PlaylistClusterCopyWithImpl<$Res, $Val extends PlaylistCluster>
   $Res call({
     Object? selectedClipUuid = null,
     Object? payload = null,
+    Object? playerUuid = freezed,
   }) {
     return _then(_value.copyWith(
       selectedClipUuid: null == selectedClipUuid
@@ -71,6 +75,10 @@ class _$PlaylistClusterCopyWithImpl<$Res, $Val extends PlaylistCluster>
           ? _value.payload
           : payload // ignore: cast_nullable_to_non_nullable
               as Map<String, List<VideosEntryPayload>>,
+      playerUuid: freezed == playerUuid
+          ? _value.playerUuid
+          : playerUuid // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -84,7 +92,9 @@ abstract class _$$PlaylistClusterImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String selectedClipUuid, Map<String, List<VideosEntryPayload>> payload});
+      {String selectedClipUuid,
+      Map<String, List<VideosEntryPayload>> payload,
+      String? playerUuid});
 }
 
 /// @nodoc
@@ -102,6 +112,7 @@ class __$$PlaylistClusterImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedClipUuid = null,
     Object? payload = null,
+    Object? playerUuid = freezed,
   }) {
     return _then(_$PlaylistClusterImpl(
       selectedClipUuid: null == selectedClipUuid
@@ -112,6 +123,10 @@ class __$$PlaylistClusterImplCopyWithImpl<$Res>
           ? _value._payload
           : payload // ignore: cast_nullable_to_non_nullable
               as Map<String, List<VideosEntryPayload>>,
+      playerUuid: freezed == playerUuid
+          ? _value.playerUuid
+          : playerUuid // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -121,7 +136,8 @@ class __$$PlaylistClusterImplCopyWithImpl<$Res>
 class _$PlaylistClusterImpl extends _PlaylistCluster {
   _$PlaylistClusterImpl(
       {required this.selectedClipUuid,
-      required final Map<String, List<VideosEntryPayload>> payload})
+      required final Map<String, List<VideosEntryPayload>> payload,
+      this.playerUuid})
       : _payload = payload,
         super._();
 
@@ -139,8 +155,11 @@ class _$PlaylistClusterImpl extends _PlaylistCluster {
   }
 
   @override
+  final String? playerUuid;
+
+  @override
   String toString() {
-    return 'PlaylistCluster(selectedClipUuid: $selectedClipUuid, payload: $payload)';
+    return 'PlaylistCluster(selectedClipUuid: $selectedClipUuid, payload: $payload, playerUuid: $playerUuid)';
   }
 
   @override
@@ -150,13 +169,15 @@ class _$PlaylistClusterImpl extends _PlaylistCluster {
             other is _$PlaylistClusterImpl &&
             (identical(other.selectedClipUuid, selectedClipUuid) ||
                 other.selectedClipUuid == selectedClipUuid) &&
-            const DeepCollectionEquality().equals(other._payload, _payload));
+            const DeepCollectionEquality().equals(other._payload, _payload) &&
+            (identical(other.playerUuid, playerUuid) ||
+                other.playerUuid == playerUuid));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, selectedClipUuid,
-      const DeepCollectionEquality().hash(_payload));
+      const DeepCollectionEquality().hash(_payload), playerUuid);
 
   /// Create a copy of PlaylistCluster
   /// with the given fields replaced by the non-null parameter values.
@@ -177,9 +198,9 @@ class _$PlaylistClusterImpl extends _PlaylistCluster {
 
 abstract class _PlaylistCluster extends PlaylistCluster {
   factory _PlaylistCluster(
-          {required final String selectedClipUuid,
-          required final Map<String, List<VideosEntryPayload>> payload}) =
-      _$PlaylistClusterImpl;
+      {required final String selectedClipUuid,
+      required final Map<String, List<VideosEntryPayload>> payload,
+      final String? playerUuid}) = _$PlaylistClusterImpl;
   _PlaylistCluster._() : super._();
 
   factory _PlaylistCluster.fromJson(Map<String, dynamic> json) =
@@ -189,6 +210,8 @@ abstract class _PlaylistCluster extends PlaylistCluster {
   String get selectedClipUuid;
   @override
   Map<String, List<VideosEntryPayload>> get payload;
+  @override
+  String? get playerUuid;
 
   /// Create a copy of PlaylistCluster
   /// with the given fields replaced by the non-null parameter values.

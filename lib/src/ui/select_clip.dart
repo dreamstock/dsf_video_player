@@ -91,6 +91,7 @@ class _SelectClipState extends State<SelectClip> {
                       data: videoPayload,
                       isSelected:
                           videoPayload.clipUuid == data.selectedClipUuid,
+                      playerUuid: data.playerUuid,
                       onTap: () {
                         widget.manager.jumpToClipWithId(videoPayload.clipUuid);
                       },
