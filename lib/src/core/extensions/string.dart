@@ -1,5 +1,9 @@
 extension StringExt on String {
-  String toTranslateVideoTitle() {
+  String toTranslateVideoTitle(String languageCode) {
+    if (languageCode != 'ja') {
+      return this;
+    }
+
     switch (this) {
       case 'Aerial Duel':
         return '空中戦';
