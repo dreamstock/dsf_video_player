@@ -51,7 +51,7 @@ class _SelectClipState extends State<SelectClip> {
             ...?widget.topBarChildren,
             if (data.payload.keys.length > 1) ...[
               Text(
-                S.of(context)?.video_groups ?? 'Video Groupds',
+                S.of(context)?.video_groups ?? 'Video Groups',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 6),
