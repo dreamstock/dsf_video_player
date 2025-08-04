@@ -1,0 +1,10 @@
+{
+  "@@locale": "ko",
+
+  "video_groups": "비디오 그룹",
+  "videos": "비디오",
+  "weak": "실패",
+  "weak_description": "이 비디오는 실패한 액션 장면입니다",
+  "loading": "로딩 중...",
+  "averageDescription": ""
+}

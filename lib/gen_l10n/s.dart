@@ -7,6 +7,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 's_en.dart';
 import 's_ja.dart';
+import 's_ko.dart';
 
 // ignore_for_file: type=lint
 
@@ -94,7 +95,8 @@ abstract class S {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('ja')
+    Locale('ja'),
+    Locale('ko')
   ];
 
   /// No description provided for @video_groups.
@@ -138,7 +140,7 @@ class _SDelegate extends LocalizationsDelegate<S> {
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'ja'].contains(locale.languageCode);
+      <String>['en', 'ja', 'ko'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_SDelegate old) => false;
@@ -151,6 +153,8 @@ S lookupS(Locale locale) {
       return SEn();
     case 'ja':
       return SJa();
+    case 'ko':
+      return SKo();
   }
 
   throw FlutterError(
