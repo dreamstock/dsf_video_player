@@ -117,6 +117,18 @@ abstract class S {
   /// **'WEAK'**
   String get weak;
 
+  /// No description provided for @new_tag.
+  ///
+  /// In en, this message translates to:
+  /// **'NEW'**
+  String get new_tag;
+
+  /// No description provided for @new_tag_description.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a new video'**
+  String get new_tag_description;
+
   /// No description provided for @weak_description.
   ///
   /// In en, this message translates to:

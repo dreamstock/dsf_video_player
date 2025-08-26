@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  chalkdart:
+    dependency: transitive
+    description:
+      name: chalkdart
+      sha256: "7ffc6bd39c81453fb9ba8dbce042a9c960219b75ea1c07196a7fa41c2fab9e86"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.5"
   characters:
     dependency: transitive
     description:
@@ -105,6 +113,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
+  country:
+    dependency: transitive
+    description:
+      name: country
+      sha256: "9ebf59c79a165a8e3495d4b3607afba1cb37972a2300cfa7ab03d6da1ab1c39d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.10"
   cross_file:
     dependency: transitive
     description:
@@ -213,8 +229,8 @@ packages:
     dependency: "direct main"
     description:
       path: dsf_commum_data_source
-      ref: "9c00e493b2f4bdd5033cabc56765fec59c8a2463"
-      resolved-ref: "9c00e493b2f4bdd5033cabc56765fec59c8a2463"
+      ref: dce4105b4cb928553b66d7a8212d34315a67fca0
+      resolved-ref: dce4105b4cb928553b66d7a8212d34315a67fca0
       url: "git@github.com:dreamstock/dsf-player-getter.git"
     source: git
     version: "0.0.1"
@@ -222,8 +238,8 @@ packages:
     dependency: "direct main"
     description:
       path: dsf_commum_ref_providers
-      ref: "9c00e493b2f4bdd5033cabc56765fec59c8a2463"
-      resolved-ref: "9c00e493b2f4bdd5033cabc56765fec59c8a2463"
+      ref: dce4105b4cb928553b66d7a8212d34315a67fca0
+      resolved-ref: dce4105b4cb928553b66d7a8212d34315a67fca0
       url: "git@github.com:dreamstock/dsf-player-getter.git"
     source: git
     version: "0.0.1"
@@ -231,11 +247,11 @@ packages:
     dependency: transitive
     description:
       path: dart
-      ref: "3.125.0"
-      resolved-ref: cc565a8e10f4fb3dd45b571fd4e30d4bf0e6b0d8
+      ref: "3.139.0"
+      resolved-ref: b2b01e115cd94d7b96b5e4d1c06ab7a40667134a
       url: "git@github.com:dreamstock/dsf-ms-proto.git"
     source: git
-    version: "3.124.1"
+    version: "3.138.3"
   dsf_video_player:
     dependency: "direct main"
     description:
@@ -291,22 +307,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
-  ffmpeg_kit_flutter:
-    dependency: transitive
-    description:
-      name: ffmpeg_kit_flutter
-      sha256: "843aae41823ca94a0988d975b4b6cdc6948744b9b7e2707d81a3a9cd237b0100"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.3"
-  ffmpeg_kit_flutter_platform_interface:
-    dependency: transitive
-    description:
-      name: ffmpeg_kit_flutter_platform_interface
-      sha256: addf046ae44e190ad0101b2fde2ad909a3cd08a2a109f6106d2f7048b7abedee
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.1"
   file:
     dependency: transitive
     description:
@@ -867,8 +867,8 @@ packages:
     dependency: "direct main"
     description:
       path: player_source_models
-      ref: "9c00e493b2f4bdd5033cabc56765fec59c8a2463"
-      resolved-ref: "9c00e493b2f4bdd5033cabc56765fec59c8a2463"
+      ref: dce4105b4cb928553b66d7a8212d34315a67fca0
+      resolved-ref: dce4105b4cb928553b66d7a8212d34315a67fca0
       url: "git@github.com:dreamstock/dsf-player-getter.git"
     source: git
     version: "0.0.1"
@@ -1369,8 +1369,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "72aeefde05a734cc46dd5e2645d3ab561fae460e"
-      resolved-ref: "72aeefde05a734cc46dd5e2645d3ab561fae460e"
+      ref: "879416a46169098e0b8cfacf8c635818b07a9037"
+      resolved-ref: "879416a46169098e0b8cfacf8c635818b07a9037"
       url: "git@github.com:dreamstock/highlights_generator.git"
     source: git
     version: "0.0.1"

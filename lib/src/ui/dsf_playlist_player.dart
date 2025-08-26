@@ -12,12 +12,14 @@ class DsfPlaylistPlayer extends StatefulWidget {
   final PlaylistCluster? payload;
   final Widget? dontHaveDataWidget;
   final List<Widget> topBarChildren;
+  final List<String> newVideoUrlList;
 
   const DsfPlaylistPlayer({
     super.key,
     required this.payload,
     this.dontHaveDataWidget,
     this.topBarChildren = const [],
+    this.newVideoUrlList = const [],
   });
 
   @override
@@ -61,6 +63,7 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
           return _VideoPageWidget(
             manager: manager,
             topBarChildren: widget.topBarChildren,
+            newVideoUrlList: widget.newVideoUrlList,
           );
         }
 
@@ -79,6 +82,7 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
                   child: _VideoPageWidget(
                     manager: manager,
                     topBarChildren: widget.topBarChildren,
+                    newVideoUrlList: widget.newVideoUrlList,
                   ),
                 ),
               ),
@@ -101,9 +105,11 @@ class _VideoPageWidget extends StatefulWidget {
   const _VideoPageWidget({
     required this.manager,
     required this.topBarChildren,
+    required this.newVideoUrlList,
   });
   final List<Widget> topBarChildren;
   final FrameManager manager;
+  final List<String> newVideoUrlList;
 
   @override
   State<_VideoPageWidget> createState() => _VideoPageWidgetState();
@@ -142,6 +148,7 @@ class _VideoPageWidgetState extends State<_VideoPageWidget> {
             child: SelectClip(
               manager: widget.manager,
               topBarChildren: widget.topBarChildren,
+              newVideoUrlList: widget.newVideoUrlList,
             ),
           ),
         ],
@@ -156,6 +163,7 @@ class _VideoPageWidgetState extends State<_VideoPageWidget> {
           child: SelectClip(
             manager: widget.manager,
             topBarChildren: widget.topBarChildren,
+            newVideoUrlList: widget.newVideoUrlList,
           ),
         ),
         const SizedBox(width: 16),

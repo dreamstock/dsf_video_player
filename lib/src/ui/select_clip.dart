@@ -11,10 +11,13 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 class SelectClip extends StatefulWidget {
   final FrameManager manager;
   final List<Widget>? topBarChildren;
+  final List<String> newVideoUrlList;
+
   const SelectClip({
     super.key,
     required this.manager,
     required this.topBarChildren,
+    required this.newVideoUrlList,
   });
 
   @override
@@ -68,6 +71,10 @@ class _SelectClipState extends State<SelectClip> {
                                 onTap: () {
                                   widget.manager.jumpToGroupWithName(name);
                                 },
+                                isNew: data.payload[name]?.any((video) => widget
+                                        .newVideoUrlList
+                                        .contains(video.videoUrl)) ??
+                                    false,
                               );
                             })
                             .toList()
@@ -92,6 +99,8 @@ class _SelectClipState extends State<SelectClip> {
                       isSelected:
                           videoPayload.clipUuid == data.selectedClipUuid,
                       playerUuid: data.playerUuid,
+                      isNew: widget.newVideoUrlList
+                          .contains(videoPayload.videoUrl),
                       onTap: () {
                         widget.manager.jumpToClipWithId(videoPayload.clipUuid);
                       },

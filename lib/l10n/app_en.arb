@@ -4,6 +4,8 @@
   "video_groups": "Video Groups:",
   "videos": "Videos:",
   "weak": "WEAK",
+  "new_tag": "NEW",
+  "new_tag_description": "This is a new video",
   "weak_description": "This is a weak video",
   "loading": "Loading..."
 }

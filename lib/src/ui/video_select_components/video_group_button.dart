@@ -5,11 +5,13 @@ class VideoGroupButton extends StatelessWidget {
   final bool isSelected;
   final GroupName groupName;
   final void Function() onTap;
+  final bool isNew;
   const VideoGroupButton({
     super.key,
     required this.isSelected,
     required this.groupName,
     required this.onTap,
+    required this.isNew,
   });
 
   @override
@@ -35,15 +37,39 @@ class VideoGroupButton extends StatelessWidget {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: FittedBox(
-                child: Text(
-                  groupName,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.grey[300],
-                    fontSize: 15,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w300,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (isNew)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                      margin: const EdgeInsets.only(right: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Text(
+                        'NEW',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  Flexible(
+                    child: FittedBox(
+                      child: Text(
+                        groupName,
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.grey[300],
+                          fontSize: 15,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.w300,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

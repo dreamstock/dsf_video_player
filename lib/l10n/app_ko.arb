@@ -4,6 +4,8 @@
   "video_groups": "비디오 그룹",
   "videos": "비디오",
   "weak": "실패",
+  "new_tag": "NEW",
+  "new_tag_description": "이 비디오는 새로 생성된 비디오입니다",
   "weak_description": "이 비디오는 실패한 액션 장면입니다",
   "loading": "로딩 중...",
   "averageDescription": ""

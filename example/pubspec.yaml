@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
-ref: &coreversion 9c00e493b2f4bdd5033cabc56765fec59c8a2463
+ref: &coreversion dce4105b4cb928553b66d7a8212d34315a67fca0
 
 environment:
   sdk: ^3.5.3
@@ -34,7 +34,7 @@ dependency_overrides:
   video_generator:
     git: 
       url: git@github.com:dreamstock/highlights_generator.git
-      ref: 72aeefde05a734cc46dd5e2645d3ab561fae460e 
+      ref: 879416a46169098e0b8cfacf8c635818b07a9037 
   player_source_models:
     git:
       url: git@github.com:dreamstock/dsf-player-getter.git
@@ -100,7 +100,7 @@ dependencies:
   video_generator:
     git: 
       url: git@github.com:dreamstock/highlights_generator.git
-      ref: 72aeefde05a734cc46dd5e2645d3ab561fae460e 
+      ref: 879416a46169098e0b8cfacf8c635818b07a9037 
   player_source_models:
     git:
       url: git@github.com:dreamstock/dsf-player-getter.git

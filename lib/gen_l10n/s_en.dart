@@ -18,6 +18,12 @@ class SEn extends S {
   String get weak => 'WEAK';
 
   @override
+  String get new_tag => 'NEW';
+
+  @override
+  String get new_tag_description => 'This is a new video';
+
+  @override
   String get weak_description => 'This is a weak video';
 
   @override

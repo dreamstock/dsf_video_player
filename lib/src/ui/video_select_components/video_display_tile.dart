@@ -19,6 +19,7 @@ class VideoDisplayTile extends StatelessWidget {
   final void Function()? onTap;
   final bool haveButtons;
   final String? playerUuid;
+  final bool isNew;
   const VideoDisplayTile({
     super.key,
     required this.isSelected,
@@ -28,6 +29,7 @@ class VideoDisplayTile extends StatelessWidget {
     this.onTap,
     this.haveButtons = true,
     this.playerUuid,
+    required this.isNew,
   });
 
   @override
@@ -98,10 +100,20 @@ class VideoDisplayTile extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: LabelWidget(
-                                  title: S.of(context)?.weak ?? 'weal',
+                                  title: S.of(context)?.weak ?? 'WEAK',
                                   message: S.of(context)?.weak_description,
                                   color: Colors.white,
                                   backgroundColor: Colors.cyan,
+                                ),
+                              ),
+                            if (isNew == true)
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: LabelWidget(
+                                  title: S.of(context)?.new_tag ?? 'NEW',
+                                  message: S.of(context)?.new_tag_description,
+                                  color: Colors.white,
+                                  backgroundColor: Colors.red,
                                 ),
                               ),
                           ],
@@ -231,7 +243,8 @@ class VideoDisplayTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30),
                         onTap: () {
                           if (playerUuid != null) {
-                            launchUrl(Uri.parse('https://player.dsfpro.app/?uuid=$playerUuid'));
+                            launchUrl(Uri.parse(
+                                'https://player.dsfpro.app/?uuid=$playerUuid'));
                           } else {
                             launchUrl(Uri.parse(videoUrl));
                           }

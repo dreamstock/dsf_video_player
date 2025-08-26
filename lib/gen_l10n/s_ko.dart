@@ -18,6 +18,12 @@ class SKo extends S {
   String get weak => '실패';
 
   @override
+  String get new_tag => 'NEW';
+
+  @override
+  String get new_tag_description => '이 비디오는 새로 생성된 비디오입니다';
+
+  @override
   String get weak_description => '이 비디오는 실패한 액션 장면입니다';
 
   @override

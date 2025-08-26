@@ -18,6 +18,12 @@ class SJa extends S {
   String get weak => '未成功';
 
   @override
+  String get new_tag => 'NEW';
+
+  @override
+  String get new_tag_description => '新しく生成された動画です';
+
+  @override
   String get weak_description => 'こちらは、未成功のアクション動画です';
 
   @override

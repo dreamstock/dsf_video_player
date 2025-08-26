@@ -4,6 +4,8 @@
   "video_groups": "動画グループ",
   "videos": "動画",
   "weak": "未成功",
+  "new_tag": "NEW",
+  "new_tag_description": "新しく生成された動画です",
   "weak_description": "こちらは、未成功のアクション動画です",
   "loading": "読み込み中..."
 }
