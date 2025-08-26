@@ -13,6 +13,7 @@ class DsfPlaylistPlayer extends StatefulWidget {
   final Widget? dontHaveDataWidget;
   final List<Widget> topBarChildren;
   final List<String> newVideoUrlList;
+  final Completer<FrameManager> managerCompleter;
 
   const DsfPlaylistPlayer({
     super.key,
@@ -20,6 +21,7 @@ class DsfPlaylistPlayer extends StatefulWidget {
     this.dontHaveDataWidget,
     this.topBarChildren = const [],
     this.newVideoUrlList = const [],
+    required this.managerCompleter,
   });
 
   @override
@@ -29,7 +31,6 @@ class DsfPlaylistPlayer extends StatefulWidget {
 // Will tween opacity between two players, the current playing one will be visible
 // and the other will be loading in the background, with opacity 0.0.
 class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
-  final Completer<FrameManager> managerCompleter = Completer();
   late final bool isMock;
   @override
   void initState() {
@@ -37,12 +38,12 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
 
     final payload = widget.payload;
     if (payload != null && payload.payload.isNotEmpty) {
-      managerCompleter.complete(FrameManager.initialize(
+      widget.managerCompleter.complete(FrameManager.initialize(
         initialData: payload,
       ));
       isMock = false;
     } else {
-      managerCompleter.complete(FrameManager.initialize(
+      widget.managerCompleter.complete(FrameManager.initialize(
         initialData: mock,
       ));
       isMock = true;
@@ -52,7 +53,7 @@ class _DsfPlaylistPlayerState extends State<DsfPlaylistPlayer> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: managerCompleter.future,
+      future: widget.managerCompleter.future,
       builder: (context, snapshot) {
         final manager = snapshot.data;
         if (manager == null) {

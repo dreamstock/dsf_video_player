@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dsf_video_player/dsf_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player_media_kit/video_player_media_kit.dart';
@@ -44,8 +46,9 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('MOCK DEMO'),
       ),
-      body: const DsfPlaylistPlayer(
+      body: DsfPlaylistPlayer(
         payload: null,
+        managerCompleter: Completer<FrameManager>(),
       ),
     );
   }
